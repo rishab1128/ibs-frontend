@@ -1,9 +1,12 @@
 import axios from 'axios';
-const ADD_USER_URL = "http://localhost:9090/api/users/";
+const USER_URL = "http://localhost:9090/api/users/";
 
 class userService{
     saveUser(user){
-        return axios.post(ADD_USER_URL,user);
+        return axios.post(USER_URL,user);
+    }
+    getUsers(){
+        return axios.get(USER_URL);
     }
 }
 

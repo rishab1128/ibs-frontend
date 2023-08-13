@@ -17,19 +17,11 @@ const Register = () => {
   const methods = useForm()
   const [success, setSuccess] = useState(false);
 
-  const [user , setUser] = useState({
-    name:"",
-    email:"",
-    password:"",
-    about:""
-  });
-
   useEffect(()=>{
     document.title = "Register";
   },[])
 
   
-
   const saveUser = methods.handleSubmit(data => {
     console.log(data);
 
