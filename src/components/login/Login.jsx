@@ -34,9 +34,11 @@ const Login = () => {
             className="form-control"
           />
         </div>
-        <button type="submit" className="btn btn-primary">
-          <Link to="/myaccount">Login</Link>
-        </button>
+        <Link to="/myaccount">
+          <button type="submit" className="btn btn-primary">
+            Login
+          </button>
+        </Link>
         <p>Don't have an account? <Link to="/signup">Sign up</Link></p>
       </form>
     </div>
