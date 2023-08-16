@@ -9,6 +9,8 @@ import RegisterForm from './pages/RegisterForm';
 import OpenAccountForm from './pages/OpenAccountForm';
 import SetNewPassword from './pages/SetNewPassword';
 import EnterOtp from './pages/EnterOtp';
+import LoginForm from './pages/LoginForm';
+import ForgotUserId from './pages/ForgotUserId';
 
 function App() {
   return (
@@ -19,12 +21,13 @@ function App() {
             <Route path="/" exact element={<Home/>} />
             <Route path="/openaccount" element={<OpenAccountForm/>}/>
             <Route path="/register" element={<RegisterForm/>}/>
-            <Route path="/login" element={<Login/>} />
-            <Route path="/myaccount" element={<MyAccount/>} />
+            <Route path="/login" element={<LoginForm/>} />
             <Route path="/enterOtp" element={<EnterOtp/>} />
             <Route path="/setnewpassword" element={<SetNewPassword/>} />
+            <Route path="/forgotuserid" element={<ForgotUserId/>} />
             <Route path="/usersList" exact element={<UsersList/>} />
             <Route path="/signup" element={<SignUp/>} />
+            <Route path="/myaccount" element={<MyAccount/>} />
           </Routes>
         </div>
       </div>
