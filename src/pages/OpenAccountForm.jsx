@@ -15,6 +15,7 @@ const schema = yup.object({
   email: yup.string().required('Email is required').email(),
   aadhar: yup.string().required('Aadhar Number is required').matches(AadharRegEx, 'Aadhar Number should be of 12 digits'),
   dob: yup.string().required('Date of birth is required')
+  //pan 
 });
 
 const OpenAccountForm = () => {
@@ -34,7 +35,7 @@ const OpenAccountForm = () => {
 
   const onSubmit = (data) => {
     console.log(data);
-    navigate('/enterOtp', {replace: true});
+    navigate('/enterOtp');
     reset();
   }
 
