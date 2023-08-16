@@ -2,10 +2,9 @@ import React, { useEffect, useState } from 'react';
 import Input from '../input/Input'
 import { FormProvider, useForm } from 'react-hook-form'
 import {
-  name_validation,
+  accountNo_validation,
+  userId_validation,
   email_validation,
-  password_validation,
-  about_validation
 } from '../../utils/inputValidations'
 import { Link } from 'react-router-dom';
 import { BsFillCheckSquareFill } from 'react-icons/bs'
@@ -46,10 +45,9 @@ const Register = () => {
                     autoComplete="off"
                 >
                 <h2>Register for Net Banking</h2>
-                <Input {...name_validation} />
+                <Input {...accountNo_validation} />
+                <Input {...userId_validation} />
                 <Input {...email_validation} />
-                <Input {...password_validation} />
-                <Input {...about_validation} />
                 <button onClick={saveUser} className="btn btn-primary">Register</button>
                 <div>
                     {success && (

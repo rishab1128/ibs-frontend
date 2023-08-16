@@ -28,7 +28,10 @@ const Home = () => {
           <h2><Link to="/login">Login</Link></h2>
         </div>
         <div className="signup-section">
-          <h2><Link to="/signup">SignUp</Link></h2>
+          <h2><Link to="/register">Register for Net Banking</Link></h2>
+        </div>
+        <div className="openacc-section">
+          <h2><Link to="/openaccount">Open New Account</Link></h2>
         </div>
       </div>
       <footer className="home-footer">

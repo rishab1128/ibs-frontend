@@ -5,6 +5,9 @@ import SignUp from './components/register/Register';
 import Home from './components/home/Home';
 import MyAccount from './components/myAccount/MyAccount';
 import UsersList from './components/usersList/UsersList';
+import RegisterForm from './pages/RegisterForm';
+import OpenAccountForm from './pages/OpenAccountForm';
+import EnterOtp from './pages/EnterOtp';
 
 function App() {
   return (
@@ -12,11 +15,14 @@ function App() {
       <div className="App">
         <div className="container">
           <Routes>
-            <Route path="/signup" element={<SignUp/>} />
-            <Route path="/login" element={<Login/>} />
-            <Route path="/myaccount" element={<MyAccount/>}/>
-            <Route path="/usersList" exact element={<UsersList/>} />
             <Route path="/" exact element={<Home/>} />
+            <Route path="/openaccount" element={<OpenAccountForm/>}/>
+            <Route path="/register" element={<RegisterForm/>}/>
+            <Route path="/login" element={<Login/>} />
+            <Route path="/myaccount" element={<MyAccount/>} />
+            <Route path="/enterOtp" element={<EnterOtp/>} />
+            <Route path="/usersList" exact element={<UsersList/>} />
+            <Route path="/signup" element={<SignUp/>} />
           </Routes>
         </div>
       </div>

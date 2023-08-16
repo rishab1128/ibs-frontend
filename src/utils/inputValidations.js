@@ -16,6 +16,41 @@ export const name_validation = {
   },
 }
 
+export const accountNo_validation = {
+  name: 'accountNumber',
+  label: 'Account Number',
+  type: 'text',
+  id:'num',
+  placeholder: 'Type your Account Number',
+  validation:{
+    required:{
+      value:true,
+      message: 'required',
+    },
+    pattern:{
+      value:/^(\d{14})$/,
+      message: 'Account number should be of 14 digits'
+    },
+  },
+}
+
+export const userId_validation = {
+  name: 'userId',
+  label: 'User ID',
+  type: 'text',
+  id: 'userId',
+  placeholder: 'Set your User ID',
+  validation: {
+    required: {
+      value: true,
+      message: 'required',
+    },
+    maxLength: {
+      value: 10,
+      message: '10 characters max',
+    },
+  },
+}
 
 export const password_validation = {
   name: 'password',
@@ -32,6 +67,24 @@ export const password_validation = {
       value: 6,
       message: 'min 6 characters',
     },
+  },
+}
+
+export const confirm_password_validation = {
+  name: 'confirm_password',
+  label: 'Confirm Password',
+  type: 'password',
+  id: 'confirm_password',
+  placeholder: 'Confirm password ...',
+  validation: {
+    required: {
+      value: true,
+      message: 'required',
+    },
+    pattern:{
+      value:'John',
+      message: 'Passwords do not match'
+    }
   },
 }
 
