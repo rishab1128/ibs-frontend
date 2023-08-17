@@ -5,7 +5,7 @@ import TextFields from "../components/TextFields";
 import { useForm } from "react-hook-form";
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from "yup";
-import {phoneRegExp, AadharRegEx} from "../utils";
+import {phoneRegExp, AadharRegEx, panRegEx} from "../utils";
 
 // create schema validation
 const schema = yup.object({
@@ -14,8 +14,8 @@ const schema = yup.object({
   mobile: yup.string().required('Mobile Phone is required').matches(phoneRegExp, 'Phone number is not valid'),
   email: yup.string().required('Email is required').email(),
   aadhar: yup.string().required('Aadhar Number is required').matches(AadharRegEx, 'Aadhar Number should be of 12 digits'),
-  dob: yup.string().required('Date of birth is required')
-  //pan 
+  dob: yup.string().required('Date of birth is required'),
+  pan: yup.string().required('PAN is required').matches(panRegEx,'PAN is not valid')
 });
 
 const OpenAccountForm = () => {
@@ -27,6 +27,7 @@ const OpenAccountForm = () => {
       email: '',
       aadhar:'',
       dob:'',
+      pan:''
     },
     resolver: yupResolver(schema)
   });
@@ -61,6 +62,7 @@ const OpenAccountForm = () => {
           }} />
           <TextFields errors={errors} control={control} name='email' label='Email' />
           <TextFields errors={errors} control={control} name='aadhar' label='Aadhar Number' />
+          <TextFields errors={errors} control={control} name='pan' label='PAN Number'/>
           <TextFields errors={errors} control={control} name='dob' label='' inputProps={{type:"date"}}/>
           <Button
             type="submit"
