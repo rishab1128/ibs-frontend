@@ -6,7 +6,7 @@ import { useForm } from "react-hook-form";
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from "yup";
 import { pswdRegEx } from "../utils";
-import {Link} from 'react-router-dom';
+import {Link, useNavigate} from 'react-router-dom';
 
 // create schema validation
 const schema = yup.object({
@@ -23,8 +23,11 @@ const LoginForm = () => {
     resolver: yupResolver(schema)
   });
 
+  const navigate = useNavigate();
+
   const onSubmit = (data) => {
     console.log(data);
+    navigate('/userDashboard');
     reset();
   }
 

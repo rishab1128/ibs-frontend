@@ -2,6 +2,7 @@ import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import HomePage from './pages/HomePage';
 import MyAccount from './components/myAccount/MyAccount';
+import UserDashboard from './pages/UserDashboard';
 import UsersList from './components/usersList/UsersList';
 import RegisterForm from './pages/RegisterForm';
 import OpenAccountForm from './pages/OpenAccountForm';
@@ -25,6 +26,7 @@ function App() {
             <Route path="/setnewpassword" element={<SetNewPassword/>} />
             <Route path="/forgotcredentials" element={<ForgotCredentials/>} />
             <Route path="/showMessage" exact element={<ShowMessage/>} />
+            <Route path="/userDashboard" exact element={<UserDashboard/>} />
             <Route path="/usersList" exact element={<UsersList/>} />
             {/* <Route path="/signup" element={<SignUp/>} /> */}
             {/* <Route path="/myaccount" element={<MyAccount/>} /> */}
