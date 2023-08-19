@@ -1,11 +1,12 @@
 import { Container, Avatar, Box, Button, InputAdornment, Typography } from "@mui/material"
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Navigate } from 'react-router-dom';
 import AssuredWorkloadIcon from '@mui/icons-material/AssuredWorkload';
 import TextFields from "../components/TextFields";
 import { useForm } from "react-hook-form";
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from "yup";
-import {phoneRegExp, AadharRegEx, panRegEx} from "../utils";
+import {phoneRegExp, aadharRegEx, panRegEx} from "../utils";
+import userService from "../services/userService";
 
 // create schema validation
 const schema = yup.object({
@@ -13,9 +14,9 @@ const schema = yup.object({
   lastName: yup.string().required('Last Name is required'),
   mobile: yup.string().required('Mobile Phone is required').matches(phoneRegExp, 'Phone number is not valid'),
   email: yup.string().required('Email is required').email(),
-  aadhar: yup.string().required('Aadhar Number is required').matches(AadharRegEx, 'Aadhar Number should be of 12 digits'),
+  aadharNo: yup.string().required('Aadhar Number is required').matches(aadharRegEx, 'Aadhar Number should be of 16 digits'),
   dob: yup.string().required('Date of birth is required'),
-  pan: yup.string().required('PAN is required').matches(panRegEx,'PAN is not valid')
+  panNo: yup.string().required('PAN is required').matches(panRegEx,'PAN is not valid')
 });
 
 const OpenAccountForm = () => {
@@ -25,18 +26,21 @@ const OpenAccountForm = () => {
       lastName: '',
       mobile: '',
       email: '',
-      aadhar:'',
+      aadharNo:'',
       dob:'',
-      pan:''
+      panNo:''
     },
     resolver: yupResolver(schema)
   });
 
   const navigate = useNavigate();
-
   const onSubmit = (data) => {
-    console.log(data);
-    navigate('/enterOtp');
+    // console.log(data);
+    userService.saveUser(data).then((res)=>{
+      navigate('/showMessage' , {state:{title:`Your acc number is ${res.data.accNo}`}});
+    }).catch((err)=>{
+      console.log(err);
+    })
     reset();
   }
 
@@ -61,8 +65,8 @@ const OpenAccountForm = () => {
           startAdornment: <InputAdornment position="start">+91</InputAdornment>
           }} />
           <TextFields errors={errors} control={control} name='email' label='Email' />
-          <TextFields errors={errors} control={control} name='aadhar' label='Aadhar Number' />
-          <TextFields errors={errors} control={control} name='pan' label='PAN Number'/>
+          <TextFields errors={errors} control={control} name='aadharNo' label='Aadhar Number' />
+          <TextFields errors={errors} control={control} name='panNo' label='PAN Number'/>
           <TextFields errors={errors} control={control} name='dob' label='' inputProps={{type:"date"}}/>
           <Button
             type="submit"

@@ -11,6 +11,7 @@ import SetNewPassword from './pages/SetNewPassword';
 import EnterOtp from './pages/EnterOtp';
 import LoginForm from './pages/LoginForm';
 import ForgotUserId from './pages/ForgotUserId';
+import ShowMessage from './pages/ShowMessage';
 
 function App() {
   return (
@@ -25,9 +26,10 @@ function App() {
             <Route path="/enterOtp" element={<EnterOtp/>} />
             <Route path="/setnewpassword" element={<SetNewPassword/>} />
             <Route path="/forgotuserid" element={<ForgotUserId/>} />
+            <Route path="/showMessage" exact element={<ShowMessage/>} />
             <Route path="/usersList" exact element={<UsersList/>} />
-            <Route path="/signup" element={<SignUp/>} />
-            <Route path="/myaccount" element={<MyAccount/>} />
+            {/* <Route path="/signup" element={<SignUp/>} /> */}
+            {/* <Route path="/myaccount" element={<MyAccount/>} /> */}
           </Routes>
         </div>
       </div>

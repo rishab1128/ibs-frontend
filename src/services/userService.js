@@ -1,12 +1,13 @@
 import axios from 'axios';
-const USER_URL = "http://localhost:9090/api/users/";
+const BASE_URL = "http://localhost:9090/api/"
+const OPENACC_URL = "http://localhost:9090/api/openaccount";
 
 class userService{
     saveUser(user){
-        return axios.post(USER_URL,user);
+        return axios.post(OPENACC_URL,user);
     }
     getUsers(){
-        return axios.get(USER_URL);
+        return axios.get(`${BASE_URL}/userlist`);
     }
 }
 
