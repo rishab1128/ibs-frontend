@@ -5,13 +5,13 @@ import PasswordFields from "../components/PasswordFields"
 import { useForm } from "react-hook-form";
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from "yup";
-import { pawdRegExp } from "../utils";
+import { pswdRegEx } from "../utils";
 import {Link} from 'react-router-dom';
 
 // create schema validation
 const schema = yup.object({
   userId: yup.string().required('User ID is required'),
-  loginPassword: yup.string().required('Login Password is required').matches(pawdRegExp, 'Must Contain 8 Characters, One Uppercase, One Lowercase, One Number and one special case Character'),
+  loginPassword: yup.string().required('Login Password is required').matches(pswdRegEx, 'Must Contain 8 Characters, One Uppercase, One Lowercase, One Number and one special case Character'),
 });
 
 const LoginForm = () => {
@@ -56,8 +56,8 @@ const LoginForm = () => {
           >Login</Button>
         </Box>
         <p>First time User?<Link to="/register"> Register</Link></p>
-        <p>Forgot<Link to="/forgotuserid" state={userIdTitle}> UserID?</Link></p>
-        <p>Forgot<Link to="/forgotuserid" state={pswdTitle}> Password?</Link></p>
+        <p>Forgot<Link to="/forgotcredentials" state={userIdTitle}> UserID?</Link></p>
+        <p>Forgot<Link to="/forgotcredentials" state={pswdTitle}> Password?</Link></p>
       </Box>
     </Container>
   )

@@ -6,15 +6,15 @@ import CheckboxFields from "../components/CheckboxFields";
 import { useForm } from "react-hook-form";
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from "yup";
-import { pawdRegExp, accountRegEx } from "../utils";
+import { pswdRegEx, accountRegEx } from "../utils";
 
 // create schema validation
 const schema = yup.object({
   accountNumber: yup.string().required('Account Number is required').matches(accountRegEx, 'Account Number should be of 14 digits'),
   userId: yup.string().required('User ID is required'),
-  loginPassword: yup.string().required('Login Password is required').matches(pawdRegExp, 'Must Contain 8 Characters, One Uppercase, One Lowercase, One Number and one special case Character'),
+  loginPassword: yup.string().required('Login Password is required').matches(pswdRegEx, 'Must Contain 8 Characters, One Uppercase, One Lowercase, One Number and one special case Character'),
   confirmLoginPassword: yup.string().oneOf([yup.ref('loginPassword'), null], 'Password must match'),
-  transactionPassword: yup.string().required('Transaction Password is required').matches(pawdRegExp, 'Must Contain 8 Characters, One Uppercase, One Lowercase, One Number and one special case Character'),
+  transactionPassword: yup.string().required('Transaction Password is required').matches(pswdRegEx, 'Must Contain 8 Characters, One Uppercase, One Lowercase, One Number and one special case Character'),
   confirmTransactionPassword: yup.string().oneOf([yup.ref('transactionPassword'), null], 'Password must match'),
   privacy: yup.bool().oneOf([true], 'Field must be checked'),
 });

@@ -5,14 +5,14 @@ import TextFields from "../components/TextFields";
 import { useForm } from "react-hook-form";
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from "yup";
-import {phoneRegExp} from "../utils";
+import {phoneRegEx} from "../utils";
 
 // create schema validation
 const schema = yup.object({
-  mobile: yup.string().required('Mobile Phone is required').matches(phoneRegExp, 'Phone number is not valid'),
+  mobile: yup.string().required('Mobile Phone is required').matches(phoneRegEx, 'Phone number is not valid'),
 });
 
-const ForgotUserId = () => {
+const ForgotCredentials = () => {
   const { handleSubmit, reset, formState: { errors }, control } = useForm({
     defaultValues: {
       mobile: '',
@@ -61,4 +61,4 @@ const ForgotUserId = () => {
   )
 }
 
-export default ForgotUserId;
+export default ForgotCredentials;

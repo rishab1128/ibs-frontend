@@ -5,14 +5,14 @@ import TextFields from "../components/TextFields";
 import { useForm } from "react-hook-form";
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from "yup";
-import {phoneRegExp, aadharRegEx, panRegEx} from "../utils";
+import {phoneRegEx, aadharRegEx, panRegEx} from "../utils";
 import userService from "../services/userService";
 
 // create schema validation
 const schema = yup.object({
   firstName: yup.string().required('First Name is required'),
   lastName: yup.string().required('Last Name is required'),
-  mobile: yup.string().required('Mobile Phone is required').matches(phoneRegExp, 'Phone number is not valid'),
+  mobile: yup.string().required('Mobile Phone is required').matches(phoneRegEx, 'Phone number is not valid'),
   email: yup.string().required('Email is required').email(),
   aadharNo: yup.string().required('Aadhar Number is required').matches(aadharRegEx, 'Aadhar Number should be of 16 digits'),
   dob: yup.string().required('Date of birth is required'),

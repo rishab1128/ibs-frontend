@@ -1,8 +1,8 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import './Home.css';
+import '../styles/HomePage.css'
 
-const Home = () => {
+const HomePage = () => {
   return (
     <div className="home-container">
       <header className="home-header">
@@ -41,4 +41,4 @@ const Home = () => {
   );
 };
 
-export default Home;
+export default HomePage;
