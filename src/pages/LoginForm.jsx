@@ -27,9 +27,15 @@ const LoginForm = () => {
 
   const onSubmit = (data) => {
     console.log(data);
-    navigate('/userDashboard');
+    console.log(data.userId);
+    navigate({
+      pathname:"/userDashboard",
+      search: `?${data.userId}`
+    }, {state:{userId: data.userId}});
     reset();
   }
+
+  // console.log(userId);
 
   const userIdTitle = {content:"FORGOT USER ID"};
   const pswdTitle = {content: "FORGOT PASSWORD"};
@@ -66,4 +72,5 @@ const LoginForm = () => {
   )
 }
 
+// export default {LoginForm,userId};
 export default LoginForm;

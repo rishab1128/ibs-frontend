@@ -14,7 +14,7 @@ const Sidebar = ({ isOpen, onClose }) => {
   const sidebarItems = [
     { text: 'User Profile', icon: <PersonIcon /> , link: "/userDashboard" },
     { text: 'Account Summary', icon: <AccountBalanceIcon /> , link: "/showTransactions" },
-    { text: 'Fund Transfer', icon: <SwapHorizIcon />, link: "/" },
+    { text: 'Fund Transfer', icon: <SwapHorizIcon />, link: "/fundTransfer" },
     { text: 'NEFT Payment', icon: <LocalAtmIcon />, link: "/" },
     { text: 'RTGS Payment', icon: <MonetizationOnIcon />, link: "/" },
     { text: 'IMPS Payment', icon: <PaymentIcon />, link: "/" },

@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import {useLocation} from 'react-router-dom';
 import {
   CssBaseline,
   AppBar,
@@ -22,8 +23,12 @@ const UserDashboard = () => {
     setSidebarOpen(!isSidebarOpen);
   };
 
+  const location = useLocation();
+  const propsData = location.state;
+
   // Mock user account data
   const accountInfo = {
+    userId : propsData.userId,
     accountNumber: '123456789',
     aadharNumber: '1234 5678 9012',
     mobileNumber: '+1 123 456 7890',
@@ -57,6 +62,7 @@ const UserDashboard = () => {
           <Grid item xs={12} md={8} lg={6}>
             <Paper elevation={3} sx={{ p: 3, height: '100%' }}>
               <Typography variant="h5">Account Information</Typography>
+              <Typography variant="body1">User ID: {accountInfo.userId}</Typography>
               <Typography variant="body1">Account Number: {accountInfo.accountNumber}</Typography>
               <Typography variant="body1">Aadhar Number: {accountInfo.aadharNumber}</Typography>
               <Typography variant="body1">Mobile Number: {accountInfo.mobileNumber}</Typography>
