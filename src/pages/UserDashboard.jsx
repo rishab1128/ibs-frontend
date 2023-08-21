@@ -12,8 +12,8 @@ import {
 } from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu';
 import Sidebar from '../components/Sidebar';
-import userAvatar from '../assets/user-avatar.jpg'; 
-import '../styles/UserDashboard.css';
+
+import userAvatar from '../assets/user-avatar.jpg'; // Adjust the path based on your actual folder structure
 
 const UserDashboard = () => {
   const [isSidebarOpen, setSidebarOpen] = useState(false);
@@ -45,33 +45,25 @@ const UserDashboard = () => {
         </Toolbar>
       </AppBar>
       <Sidebar isOpen={isSidebarOpen} onClose={toggleSidebar} />
-      <Container
-        sx={{
-          marginTop: '80px',
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: isSidebarOpen ? 'flex-end' : 'center', 
-          flex: 1,
-        }}
-        className = "dashboard-container"
-      >
+      <Container sx={{ marginTop: '80px', display: 'flex', alignItems: 'flex-start', justifyContent: 'center', flex: 1 }}>
         <Grid container spacing={3} justifyContent="center">
-          <Grid item xs={12} md={8} lg={6} className = "account-info-container">
-            <Paper elevation={3} sx={{ p: 3, display: 'flex', alignItems: 'center', height: '100%' }}>
-              <Avatar sx={{ width: 120, height: 120, marginRight: 2 }}>
+          <Grid item xs={12} md={8} lg={6}>
+            <Paper elevation={3} sx={{ p: 3, display: 'flex', justifyContent: 'center', height: '100%' }}>
+              <Paper sx={{ width: 150, height: 150 }}>
                 <img src={userAvatar} alt="User Avatar" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
-              </Avatar>
-              <div>
-                <Typography variant="h5">Account Information</Typography>
-                <Typography variant="body1">Account Number: {accountInfo.accountNumber}</Typography>
-                <Typography variant="body1">Aadhar Number: {accountInfo.aadharNumber}</Typography>
-                <Typography variant="body1">Mobile Number: {accountInfo.mobileNumber}</Typography>
-                <Typography variant="body1">Email: {accountInfo.email}</Typography>
-                <Typography variant="body1">PAN Number: {accountInfo.panNumber}</Typography>
-              </div>
+              </Paper>
             </Paper>
           </Grid>
-          {/* Add more Grid items for other sections */}
+          <Grid item xs={12} md={8} lg={6}>
+            <Paper elevation={3} sx={{ p: 3, height: '100%' }}>
+              <Typography variant="h5">Account Information</Typography>
+              <Typography variant="body1">Account Number: {accountInfo.accountNumber}</Typography>
+              <Typography variant="body1">Aadhar Number: {accountInfo.aadharNumber}</Typography>
+              <Typography variant="body1">Mobile Number: {accountInfo.mobileNumber}</Typography>
+              <Typography variant="body1">Email: {accountInfo.email}</Typography>
+              <Typography variant="body1">PAN Number: {accountInfo.panNumber}</Typography>
+            </Paper>
+          </Grid>
         </Grid>
       </Container>
     </div>

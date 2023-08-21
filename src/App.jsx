@@ -11,6 +11,7 @@ import EnterOtp from './pages/EnterOtp';
 import LoginForm from './pages/LoginForm';
 import ShowMessage from './pages/ShowMessage';
 import ForgotCredentials from './pages/ForgotCredentials';
+import AccountSummary from './pages/AccountSummary';
 
 function App() {
   return (
@@ -28,6 +29,7 @@ function App() {
             <Route path="/showMessage" exact element={<ShowMessage/>} />
             <Route path="/userDashboard" exact element={<UserDashboard/>} />
             <Route path="/usersList" exact element={<UsersList/>} />
+            <Route path="/showTransactions" exact element={<AccountSummary/>} />
             {/* <Route path="/signup" element={<SignUp/>} /> */}
             {/* <Route path="/myaccount" element={<MyAccount/>} /> */}
           </Routes>

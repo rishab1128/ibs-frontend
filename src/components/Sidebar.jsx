@@ -1,4 +1,5 @@
 import React from 'react';
+import {Link} from 'react-router-dom';
 import { Drawer, List, ListItem, ListItemIcon, ListItemText, IconButton } from '@mui/material';
 import AccountBalanceIcon from '@mui/icons-material/AccountBalance';
 import SwapHorizIcon from '@mui/icons-material/SwapHoriz';
@@ -6,16 +7,18 @@ import LocalAtmIcon from '@mui/icons-material/LocalAtm';
 import MonetizationOnIcon from '@mui/icons-material/MonetizationOn';
 import PaymentIcon from '@mui/icons-material/Payment';
 import PersonAddIcon from '@mui/icons-material/PersonAdd';
+import PersonIcon from '@mui/icons-material/Person';
 import CloseIcon from '@mui/icons-material/Close';
 
 const Sidebar = ({ isOpen, onClose }) => {
   const sidebarItems = [
-    { text: 'Account Summary', icon: <AccountBalanceIcon /> },
-    { text: 'Fund Transfer', icon: <SwapHorizIcon /> },
-    { text: 'NEFT Payment', icon: <LocalAtmIcon /> },
-    { text: 'RTGS Payment', icon: <MonetizationOnIcon /> },
-    { text: 'IMPS Payment', icon: <PaymentIcon /> },
-    { text: 'Add Beneficiary', icon: <PersonAddIcon /> },
+    { text: 'User Profile', icon: <PersonIcon /> , link: "/userDashboard" },
+    { text: 'Account Summary', icon: <AccountBalanceIcon /> , link: "/showTransactions" },
+    { text: 'Fund Transfer', icon: <SwapHorizIcon />, link: "/" },
+    { text: 'NEFT Payment', icon: <LocalAtmIcon />, link: "/" },
+    { text: 'RTGS Payment', icon: <MonetizationOnIcon />, link: "/" },
+    { text: 'IMPS Payment', icon: <PaymentIcon />, link: "/" },
+    { text: 'Add Beneficiary', icon: <PersonAddIcon />, link: "/" },
   ];
 
   return (
@@ -33,7 +36,7 @@ const Sidebar = ({ isOpen, onClose }) => {
           {sidebarItems.map((item, index) => (
             <ListItem button key={index}>
               <ListItemIcon>{item.icon}</ListItemIcon>
-              <ListItemText primary={item.text} />
+              <Link to={item.link}><ListItemText primary={item.text} /></Link>
             </ListItem>
           ))}
         </List>
