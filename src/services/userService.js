@@ -1,4 +1,5 @@
 import axios from 'axios';
+import http from "../utils/http-client";
 const BASE_URL = "http://localhost:9090/api"
 // const OPENACC_URL = "http://localhost:9090/api/openaccount";
 
@@ -13,7 +14,7 @@ class userService{
         return axios.get(`${BASE_URL}/userlist`);
     }
     getUser(userId){
-        return axios.get(`${BASE_URL}/userDashboard/${userId}`)
+        return http.get(`${BASE_URL}/userDashboard/${userId}`)
     }
 }
 
