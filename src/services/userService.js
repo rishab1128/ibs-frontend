@@ -12,6 +12,9 @@ class userService{
     getUsers(){
         return axios.get(`${BASE_URL}/userlist`);
     }
+    getUser(userId){
+        return axios.get(`${BASE_URL}/userDashboard/${userId}`)
+    }
 }
 
 export default new userService();

@@ -14,10 +14,6 @@ const register = (data) => {
     return http.post('/register', data);
 }
 
-const profile = () => {
-    return http.get('/userDashboard/:userId');
-}
-
 /*
 const logout = () => {
     return http.get('/', null, {
@@ -31,12 +27,19 @@ const logout = () => {
 
 const getAuthUser = () => {
     return JSON.parse(localStorage.getItem('authUser'));
-}  
+}
+
+// const authUser = getAuthUser();
+// const userId = authUser.userId;
+
+
+// const profile = () => {
+//     return http.get(`/userDashboard/${userId}`);
+// }
 
 const methods = { 
     login,
     register,
-    profile,
     getAuthUser
 }
 

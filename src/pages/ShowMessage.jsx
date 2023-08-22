@@ -1,10 +1,13 @@
-import {useLocation} from 'react-router-dom';
+import {useLocation, Link} from 'react-router-dom';
 const ShowMessage =  ()=>{
     const location = useLocation(); 
-    const propsData = location.state;
-    const data = propsData.title || 789;  
+    const propsData = location?.state;
+    const data = propsData?.title || 111;  
     return(
-        <div><h1>{data}</h1></div>
+        <div>
+            <h1>{data}</h1>
+            <Link to="/register">Go to Register</Link>
+        </div>
     )
 }
 export default ShowMessage;

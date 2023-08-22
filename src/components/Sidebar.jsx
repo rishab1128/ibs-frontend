@@ -21,10 +21,10 @@ const Sidebar = ({ isOpen, onClose }) => {
     { text: 'User Profile', icon: <PersonIcon /> , link: `/userDashboard/${authUser.userId}` },
     { text: 'Account Summary', icon: <AccountBalanceIcon /> , link: "/showTransactions" },
     { text: 'Fund Transfer', icon: <SwapHorizIcon />, link: "/fundTransfer" },
-    { text: 'NEFT Payment', icon: <LocalAtmIcon />, link: "/" },
-    { text: 'RTGS Payment', icon: <MonetizationOnIcon />, link: "/" },
-    { text: 'IMPS Payment', icon: <PaymentIcon />, link: "/" },
-    { text: 'Add Beneficiary', icon: <PersonAddIcon />, link: "/" },
+    { text: 'NEFT Payment', icon: <LocalAtmIcon />, link: `/userDashboard/${authUser.userId}` },
+    { text: 'RTGS Payment', icon: <MonetizationOnIcon />, link: `/userDashboard/${authUser.userId}` },
+    { text: 'IMPS Payment', icon: <PaymentIcon />, link: `/userDashboard/${authUser.userId}` },
+    { text: 'Add Beneficiary', icon: <PersonAddIcon />, link: `/userDashboard/${authUser.userId}` },
     { text: 'Logout', icon: <ExitToAppIcon />}
   ];
 

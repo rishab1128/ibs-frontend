@@ -1,5 +1,4 @@
-import React, { useState } from 'react';
-import {useLocation} from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
 import {
   CssBaseline,
   AppBar,
@@ -9,11 +8,11 @@ import {
   Container,
   Grid,
   Paper,
-  Avatar,
 } from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu';
 import Sidebar from '../components/Sidebar';
 import authService from "../services/authService";
+import userService from '../services/userService';
 import userAvatar from '../assets/user-avatar.jpg'; 
 
 const UserDashboard = () => {
@@ -23,18 +22,33 @@ const UserDashboard = () => {
     setSidebarOpen(!isSidebarOpen);
   };
 
-  const location = useLocation();
-  const propsData = location?.state;
   const authUser = authService.getAuthUser();
 
-  // Mock user account data
+  const [user, setUser] = useState(null);
+
+  useEffect(() => {
+    fetchProfile();
+  }, []);
+
+  const fetchProfile = async () => {
+    try {
+      const result = await userService.getUser(authUser?.userId);
+      console.log(result);
+      setUser(result?.data)
+    } catch (error) {
+      console.log("Err : " , error);
+    }
+  }
+
+
+  
   const accountInfo = {
     userId : authUser?.userId,
-    accountNumber: '123456789',
-    aadharNumber: '1234 5678 9012',
-    mobileNumber: '+1 123 456 7890',
-    email: 'user@example.com',
-    panNumber: 'ABCDE1234F',
+    accountNumber: user?.accNo,
+    aadharNumber: user?.aadharNo,
+    mobileNumber:user?.mobile,
+    email: user?.email,
+    panNumber: user?.panNo,
   };
 
   return (
