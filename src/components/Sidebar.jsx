@@ -9,17 +9,35 @@ import PaymentIcon from '@mui/icons-material/Payment';
 import PersonAddIcon from '@mui/icons-material/PersonAdd';
 import PersonIcon from '@mui/icons-material/Person';
 import CloseIcon from '@mui/icons-material/Close';
+import ExitToAppIcon from '@mui/icons-material/ExitToApp';
+import toast from 'react-hot-toast';
+import authService from "../services/authService";
 
 const Sidebar = ({ isOpen, onClose }) => {
+
+  const authUser = authService.getAuthUser();
+
   const sidebarItems = [
-    { text: 'User Profile', icon: <PersonIcon /> , link: "/userDashboard" },
+    { text: 'User Profile', icon: <PersonIcon /> , link: `/userDashboard/${authUser.userId}` },
     { text: 'Account Summary', icon: <AccountBalanceIcon /> , link: "/showTransactions" },
     { text: 'Fund Transfer', icon: <SwapHorizIcon />, link: "/fundTransfer" },
     { text: 'NEFT Payment', icon: <LocalAtmIcon />, link: "/" },
     { text: 'RTGS Payment', icon: <MonetizationOnIcon />, link: "/" },
     { text: 'IMPS Payment', icon: <PaymentIcon />, link: "/" },
     { text: 'Add Beneficiary', icon: <PersonAddIcon />, link: "/" },
+    { text: 'Logout', icon: <ExitToAppIcon />}
   ];
+
+  const handleLogout = () => { 
+    try {
+      localStorage.removeItem('authUser');
+      window.location.reload(true);
+    } catch (error) {
+      console.log(error);
+      toast.error(error?.data?.message);
+    }
+  }
+
 
   return (
     <Drawer anchor="left" open={isOpen} onClose={onClose}>
@@ -34,10 +52,15 @@ const Sidebar = ({ isOpen, onClose }) => {
         </IconButton>
         <List>
           {sidebarItems.map((item, index) => (
+            item.text === 'Logout' ? 
             <ListItem button key={index}>
               <ListItemIcon>{item.icon}</ListItemIcon>
-              <Link to={item.link}><ListItemText primary={item.text} /></Link>
+              <Link to={'/'} onClick={handleLogout}><ListItemText primary={item.text} /></Link>
             </ListItem>
+            : <ListItem button key={index}>
+                <ListItemIcon>{item.icon}</ListItemIcon>
+                <Link to={item.link}><ListItemText primary={item.text} /></Link>
+              </ListItem>
           ))}
         </List>
       </div>

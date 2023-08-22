@@ -7,12 +7,15 @@ import CheckboxFields from "../components/CheckboxFields";
 import { useForm } from "react-hook-form";
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from "yup";
-import { pswdRegEx, accountRegEx } from "../utils";
+import { pswdRegEx } from "../utils";
 import userService from "../services/userService";
+import toast from 'react-hot-toast';
+import authService from '../services/authService';
+import { useState } from 'react';
 
 // create schema validation
 const schema = yup.object({
-  accNo: yup.string().required('Account Number is required').matches(accountRegEx, 'Account Number should be of 3 digits'),
+  accNo: yup.string().required('Account Number is required'),
   userId: yup.string().required('User ID is required'),
   loginPass: yup.string().required('Login Pass is required').matches(pswdRegEx, 'Must Contain 8 Characters, One Uppercase, One Lowercase, One Number and one special case Character'),
   confirmLoginPass: yup.string().oneOf([yup.ref('loginPass'), null], 'Pass must match'),
@@ -22,7 +25,7 @@ const schema = yup.object({
 });
 
 const RegisterForm = () => {
-  const { handleSubmit, reset, formState: { errors }, control } = useForm({
+  const { handleSubmit, reset, formState: { errors, isDirty, isValid }, control } = useForm({
     defaultValues: {
       accNo: '',
       userId: '',
@@ -36,16 +39,27 @@ const RegisterForm = () => {
   });
 
   const navigate = useNavigate();
-  const onSubmit = (data) => {
-      console.log(data);
-      const {confirmLoginPass, confirmTransactionPass, privacy, ...updated_data} = data;
-      userService.saveUserId(updated_data).then((res)=>{
-      console.log(res);
-      navigate('/');
-    }).catch((err)=>{
-      console.log(err);
-    })
-    reset();
+  const [isSubmitted, setIsSubmitted] = useState();
+
+  const onSubmit = async (data) => {
+    console.log(data);
+    setIsSubmitted(true);
+    const {confirmLoginPass, confirmTransactionPass, privacy, ...updated_data} = data;
+    try{
+      const result = await authService.register(data);
+      if(result.data){
+        userService.saveUserId(updated_data).then((res)=>{
+          console.log(res);
+          navigate('/');
+        }).catch((error)=>{
+          console.log(error);
+          toast.error(error.data.message);
+        })
+      }}catch(error){
+        toast.error(error.data.message);
+      }
+      setIsSubmitted(false);
+      reset();
   }
 
   return (
@@ -76,6 +90,7 @@ const RegisterForm = () => {
             fullWidth
             variant="contained"
             sx={{ mt: 3, mb: 2 }}
+            disabled={isSubmitted || !isDirty || !isValid}
           >Register</Button>
         </Box>
       </Box>

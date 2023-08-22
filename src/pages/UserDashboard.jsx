@@ -13,8 +13,8 @@ import {
 } from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu';
 import Sidebar from '../components/Sidebar';
-
-import userAvatar from '../assets/user-avatar.jpg'; // Adjust the path based on your actual folder structure
+import authService from "../services/authService";
+import userAvatar from '../assets/user-avatar.jpg'; 
 
 const UserDashboard = () => {
   const [isSidebarOpen, setSidebarOpen] = useState(false);
@@ -24,11 +24,12 @@ const UserDashboard = () => {
   };
 
   const location = useLocation();
-  const propsData = location.state;
+  const propsData = location?.state;
+  const authUser = authService.getAuthUser();
 
   // Mock user account data
   const accountInfo = {
-    userId : propsData.userId,
+    userId : authUser?.userId,
     accountNumber: '123456789',
     aadharNumber: '1234 5678 9012',
     mobileNumber: '+1 123 456 7890',
