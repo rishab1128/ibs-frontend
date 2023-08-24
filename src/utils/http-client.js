@@ -2,7 +2,7 @@ import axios from 'axios';
 import authService from '../services/authService';
 
 const instance = axios.create({
-    baseURL: "http://localhost:9090/api"
+    baseURL: "http://localhost:9091/api"
 });
 
 instance.interceptors.request.use((config) => {
@@ -20,6 +20,7 @@ instance.interceptors.response.use((response) => {
     }, (error) => {
     if (error?.response?.status === 401) { 
         localStorage.removeItem('authUser');
+        localStorage.removeItem('accountInfo');
         window.location.reload();
     } else {
         return Promise.reject(error.response);

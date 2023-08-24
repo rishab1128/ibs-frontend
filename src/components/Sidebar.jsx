@@ -18,19 +18,20 @@ const Sidebar = ({ isOpen, onClose }) => {
   const authUser = authService.getAuthUser();
 
   const sidebarItems = [
-    { text: 'User Profile', icon: <PersonIcon /> , link: `/userDashboard/${authUser.userId}` },
+    { text: 'User Profile', icon: <PersonIcon /> , link: `/userDashboard/${authUser?.userId}` },
     { text: 'Account Summary', icon: <AccountBalanceIcon /> , link: "/showTransactions" },
     { text: 'Fund Transfer', icon: <SwapHorizIcon />, link: "/fundTransfer" },
-    { text: 'NEFT Payment', icon: <LocalAtmIcon />, link: `/userDashboard/${authUser.userId}` },
-    { text: 'RTGS Payment', icon: <MonetizationOnIcon />, link: `/userDashboard/${authUser.userId}` },
-    { text: 'IMPS Payment', icon: <PaymentIcon />, link: `/userDashboard/${authUser.userId}` },
-    { text: 'Add Beneficiary', icon: <PersonAddIcon />, link: `/userDashboard/${authUser.userId}` },
+    { text: 'NEFT Payment', icon: <LocalAtmIcon />, link: `/userDashboard/${authUser?.userId}` },
+    { text: 'RTGS Payment', icon: <MonetizationOnIcon />, link: `/userDashboard/${authUser?.userId}` },
+    { text: 'IMPS Payment', icon: <PaymentIcon />, link: `/userDashboard/${authUser?.userId}` },
+    { text: 'Add Beneficiary', icon: <PersonAddIcon />, link: `/userDashboard/${authUser?.userId}` },
     { text: 'Logout', icon: <ExitToAppIcon />}
   ];
 
   const handleLogout = () => { 
     try {
       localStorage.removeItem('authUser');
+      localStorage.removeItem('accountInfo');
       window.location.reload(true);
     } catch (error) {
       console.log(error);

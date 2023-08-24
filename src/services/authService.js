@@ -29,6 +29,10 @@ const getAuthUser = () => {
     return JSON.parse(localStorage.getItem('authUser'));
 }
 
+const getAccountInfo = () => {
+    return JSON.parse(localStorage.getItem('accountInfo'));
+}
+
 // const authUser = getAuthUser();
 // const userId = authUser.userId;
 
@@ -40,7 +44,8 @@ const getAuthUser = () => {
 const methods = { 
     login,
     register,
-    getAuthUser
+    getAuthUser,
+    getAccountInfo
 }
 
 export default methods;

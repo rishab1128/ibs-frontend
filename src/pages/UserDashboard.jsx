@@ -40,16 +40,17 @@ const UserDashboard = () => {
     }
   }
 
-
-  
   const accountInfo = {
     userId : authUser?.userId,
     accountNumber: user?.accNo,
+    accBalance: user?.accBalance,
     aadharNumber: user?.aadharNo,
     mobileNumber:user?.mobile,
     email: user?.email,
     panNumber: user?.panNo,
   };
+
+  localStorage.setItem('accountInfo',JSON.stringify(accountInfo));
 
   return (
     <div style={{ display: 'flex', minHeight: '100vh' }}>
@@ -78,6 +79,7 @@ const UserDashboard = () => {
             <Paper elevation={3} sx={{ p: 3, height: '100%' }}>
               <Typography variant="h5">Account Information</Typography>
               <Typography variant="body1">User ID: {accountInfo.userId}</Typography>
+              <Typography variant="body1">Account Bal: {accountInfo.accBalance}</Typography>
               <Typography variant="body1">Account Number: {accountInfo.accountNumber}</Typography>
               <Typography variant="body1">Aadhar Number: {accountInfo.aadharNumber}</Typography>
               <Typography variant="body1">Mobile Number: {accountInfo.mobileNumber}</Typography>

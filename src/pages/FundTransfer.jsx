@@ -6,22 +6,25 @@ import {
   Toolbar,
   IconButton,
 } from '@mui/material';
-import {useState} from 'react';
+import {useState, useEffect} from 'react';
 import MenuIcon from '@mui/icons-material/Menu';
 import Sidebar from '../components/Sidebar';
 import { useNavigate } from 'react-router-dom';
 import TextFields from "../components/TextFields";
+import SelectFields from "../components/SelectFields";
 import { useForm } from "react-hook-form";
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from "yup";
 import { accountRegEx } from "../utils";
 import userService from "../services/userService";
+import authService from "../services/authService";
 
 // create schema validation
 const schema = yup.object({
-  accNo1: yup.string().required('Account Number is required').matches(accountRegEx, 'Account Number should be of 3 digits'),
-  accNo2: yup.string().required('Account Number is required').matches(accountRegEx, 'Account Number should be of 3 digits'),
-  bal: yup.string().required('Amount to be transfered is required')
+  // payer: yup.number().required('Payer Account Number is required').matches(accountRegEx, 'Account Number should be of 3 digits'),
+  // receiver: yup.number().required('Receiver Account Number is required').matches(accountRegEx, 'Account Number should be of 3 digits'),
+  // amount: yup.number().required('Amount to be transfered is required'),
+  mode: yup.string().required('Mode of payment is reqd')
 });
 
 const FundTransfer = () => {
@@ -31,25 +34,47 @@ const FundTransfer = () => {
     setSidebarOpen(!isSidebarOpen);
   };
 
+  // const [user, setUser] = useState(null);
+  // const authUser = authService.getAuthUser();
+  const accInfo = authService.getAccountInfo();
+  console.log(accInfo);
+
+  // useEffect(() => {
+  //   fetchProfile();
+  // }, []);
+
+  // const fetchProfile = async () => {
+  //   try {
+  //     const result = await userService.getUser(authUser?.userId);
+  //     // console.log(result);
+  //     setUser(result?.data)
+  //   } catch (error) {
+  //     console.log("Err : " , error);
+  //   }
+  // }
+
+  // console.log(user);
+
   const { handleSubmit, reset, formState: { errors }, control } = useForm({
     defaultValues: {
-      accNo1: '123',
-      accNo2: '',
-      bal:''
+      payer: `${accInfo?.accountNumber}`,
+      receiver: '',
+      amount:'',
+      mode:'neft'
     },
     resolver: yupResolver(schema)
   });
 
   const navigate = useNavigate();
   const onSubmit = (data) => {
-      console.log(data);
-    //   userService.saveUserId(updated_data).then((res)=>{
-    //   console.log(res);
-    //   navigate('/');
-    // }).catch((err)=>{
-    //   console.log(err);
-    // })
-    reset();
+      // console.log(data);
+      userService.fundTransfer(data).then((res)=>{
+        console.log(res);
+        navigate({pathname:`/userDashboard/${accInfo?.userId}`}, {state:{userId: accInfo?.userId}});
+      }).catch((error)=>{
+        console.log(error);
+      })
+      reset();
   }
 
   return (
@@ -80,9 +105,10 @@ const FundTransfer = () => {
 
           {/* Form */}
           <Box noValidate component='form' onSubmit={handleSubmit(onSubmit)} sx={{width: '100%', mt: '2rem' }}>
-            <TextFields errors={errors} control={control} name='accNo1' label='From Account Number' />
-            <TextFields errors={errors} control={control} name='accNo2' label='To Account Number' />
-            <TextFields errors={errors} control={control} name='bal' label='Amount to be transfered' />
+            <TextFields disabled={true} errors={errors} control={control} name='payer' label='From Account Number' />
+            <TextFields errors={errors} control={control} name='receiver' label='To Account Number' />
+            <TextFields errors={errors} control={control} name='amount' label='Amount to be transfered' />
+            <SelectFields errors={errors} control={control} name='mode' label='Mode of Transfer'/>
             <Button
               type="submit"
               fullWidth

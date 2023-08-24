@@ -1,7 +1,9 @@
 import axios from 'axios';
 import http from "../utils/http-client";
-const BASE_URL = "http://localhost:9090/api"
-// const OPENACC_URL = "http://localhost:9090/api/openaccount";
+import authService from "./authService";
+const BASE_URL = "http://localhost:9091/api";
+const BASE_URL2 = "http://localhost:9091/api/userDashboard";
+const authUser = authService.getAuthUser();
 
 class userService{
     saveUser(user){
@@ -14,7 +16,13 @@ class userService{
         return axios.get(`${BASE_URL}/userlist`);
     }
     getUser(userId){
-        return http.get(`${BASE_URL}/userDashboard/${userId}`)
+        return http.get(`${BASE_URL2}/${userId}`)
+    }
+    fundTransfer(data){
+        return http.post(`${BASE_URL2}/fundTransfer/${authUser?.userId}`,data);
+    }
+    getUserTransaction(userId){
+        return http.get(`${BASE_URL2}/showTransactions/${userId}`);
     }
 }
 

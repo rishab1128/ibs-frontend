@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState,useEffect } from 'react';
 import {
   CssBaseline,
   AppBar,
@@ -16,6 +16,10 @@ import {
 } from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu';
 import Sidebar from '../components/Sidebar';
+import userService from '../services/userService';
+import authService from "../services/authService";
+
+
 
 const AccountSummary = () => {
   const [isSidebarOpen, setSidebarOpen] = useState(false);
@@ -24,12 +28,34 @@ const AccountSummary = () => {
     setSidebarOpen(!isSidebarOpen);
   };
 
-  // Mock account summary data
-  const accountSummaryData = [
-    { payer: 'John Doe', payee: 'Alice Smith', modeOfPayment: 'UPI', typeOfPayment: 'Credit', amountTransferred: '$100', currentBalance: '$900' },
-    { payer: 'Alice Smith', payee: 'Bob Johnson', modeOfPayment: 'NEFT', typeOfPayment: 'Debit', amountTransferred: '$200', currentBalance: '$700' },
-    // Add more data here
-  ];
+  const authUser = authService.getAuthUser();
+
+  const [acc,setAcc] = useState([{
+    "payer": 2,
+    "receiver": 1,
+    "mode": "neft",
+    "transId": 17111,
+    "amount": 60
+}]);
+
+  useEffect(() => {
+    fetchData();
+  }, []);
+
+  const fetchData =  async () => {
+    try {
+      const result = await userService.getUserTransaction(authUser?.userId);
+      console.log(result);
+      setAcc(result?.data)
+    } catch (error) {
+      console.log("Err : " , error);
+    }
+  }
+
+
+  console.log(acc);
+  
+
 
   return (
     <div style={{ display: 'flex', minHeight: '100vh' }}>
@@ -54,20 +80,20 @@ const AccountSummary = () => {
                   <TableCell>Payer</TableCell>
                   <TableCell>Payee</TableCell>
                   <TableCell>Mode of Payment</TableCell>
-                  <TableCell>Type of Payment</TableCell>
+                  <TableCell>Transaction ID</TableCell>
                   <TableCell>Amount Transferred</TableCell>
-                  <TableCell>Current Balance</TableCell>
+                  {/* <TableCell>Current Balance</TableCell> */}
                 </TableRow>
               </TableHead>
               <TableBody>
-                {accountSummaryData.map((row, index) => (
+                {acc?.map((row, index) => (
                   <TableRow key={index}>
                     <TableCell>{row.payer}</TableCell>
-                    <TableCell>{row.payee}</TableCell>
-                    <TableCell>{row.modeOfPayment}</TableCell>
-                    <TableCell>{row.typeOfPayment}</TableCell>
-                    <TableCell>{row.amountTransferred}</TableCell>
-                    <TableCell>{row.currentBalance}</TableCell>
+                    <TableCell>{row.receiver}</TableCell>
+                    <TableCell>{row.mode}</TableCell>
+                    <TableCell>{row.transId}</TableCell>
+                    <TableCell>{row.amount}</TableCell>
+                    {/* <TableCell>{row.currentBalance}</TableCell> */}
                   </TableRow>
                 ))}
               </TableBody>
