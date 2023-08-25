@@ -18,6 +18,8 @@ import MenuIcon from '@mui/icons-material/Menu';
 import Sidebar from '../components/Sidebar';
 import userService from '../services/userService';
 import authService from "../services/authService";
+import ShowBalance from '../components/ShowBalance';
+import Navbar from '../components/Navbar';
 
 
 
@@ -59,7 +61,7 @@ const AccountSummary = () => {
 
   return (
     <div style={{ display: 'flex', minHeight: '100vh' }}>
-      <CssBaseline />
+      {/* <CssBaseline />
       <AppBar position="fixed">
         <Toolbar>
           <IconButton edge="start" color="inherit" onClick={toggleSidebar} sx={{ mr: 2 }}>
@@ -68,9 +70,11 @@ const AccountSummary = () => {
           <Typography variant="h6" noWrap>
             Bank Account Dashboard
           </Typography>
+          <ShowBalance/>
         </Toolbar>
       </AppBar>
-      <Sidebar isOpen={isSidebarOpen} onClose={toggleSidebar} />
+      <Sidebar isOpen={isSidebarOpen} onClose={toggleSidebar} /> */}
+      <Navbar/>
       <Container sx={{ marginTop: '80px', display: 'flex', alignItems: 'flex-start', justifyContent: 'center', flex: 1 }}>
         <Paper elevation={3} sx={{ p: 3, width: '100%', maxWidth: '800px' }}>
           <TableContainer>

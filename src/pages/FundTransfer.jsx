@@ -18,6 +18,8 @@ import * as yup from "yup";
 import { accountRegEx } from "../utils";
 import userService from "../services/userService";
 import authService from "../services/authService";
+import ShowBalance from "../components/ShowBalance";
+import Navbar from "../components/Navbar";
 
 // create schema validation
 const schema = yup.object({
@@ -79,7 +81,7 @@ const FundTransfer = () => {
 
   return (
     <div style={{ display: 'flex', minHeight: '100vh' }}>
-    <CssBaseline />
+    {/* <CssBaseline />
       <AppBar position="fixed">
         <Toolbar>
           <IconButton edge="start" color="inherit" onClick={toggleSidebar} sx={{ mr: 2 }}>
@@ -88,9 +90,11 @@ const FundTransfer = () => {
           <Typography variant="h6" noWrap>
             Bank Account Dashboard
           </Typography>
+          <ShowBalance/>
         </Toolbar>
       </AppBar>
-      <Sidebar isOpen={isSidebarOpen} onClose={toggleSidebar} />
+      <Sidebar isOpen={isSidebarOpen} onClose={toggleSidebar} /> */}
+      <Navbar/>
       <Container maxWidth="xs">
         <Box sx={{
           display: 'flex',

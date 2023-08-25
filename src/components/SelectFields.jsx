@@ -14,7 +14,6 @@ const SelectFields = ({ label, name, control, errors }) => {
         control={control}
         render={({ field }) => (
           <TextField {...addErrorIntoField(errors[name])} {...field} required select label={label} variant="filled">
-            <MenuItem value=''><em>None</em></MenuItem>
             {modeNames.map(mode => (
               <MenuItem key={mode} value={mode}>{mode}</MenuItem>
             ))}
