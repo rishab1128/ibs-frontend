@@ -10,7 +10,7 @@ class userService{
         return axios.post(`${BASE_URL}/openaccount`,user);
     }
     saveUserId(user){
-        return axios.post(`${BASE_URL}/register`,user);
+        return http.post(`${BASE_URL}/register`,user);
     }
     getUsers(){
         return axios.get(`${BASE_URL}/userlist`);
@@ -23,6 +23,15 @@ class userService{
     }
     getUserTransaction(userId){
         return http.get(`${BASE_URL2}/showTransactions/${userId}`);
+    }
+    getPendingUsers(){
+        return http.get(`${BASE_URL}/admin/userlist_requested`);
+    }
+    getApprovedUsers(){
+        return http.get(`${BASE_URL}/admin/userlist_approved`);
+    }
+    postPendingUsers(data){
+        return http.post(`${BASE_URL}/admin/userlist_requested`,data);
     }
 }
 

@@ -38,10 +38,15 @@ const OpenAccountForm = () => {
     // console.log(data);
     userService.saveUser(data).then((res)=>{
       navigate('/showMessage' , {state:{title:`Your acc number is ${res.data.accNo}`}});
+      reset();
     }).catch((err)=>{
       console.log(err);
+      if(err?.response?.data?.success===false)
+      {
+        alert(`${err?.response?.data.messageString}`);
+      }
     })
-    reset();
+    
   }
 
   return (

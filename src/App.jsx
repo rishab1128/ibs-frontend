@@ -16,6 +16,8 @@ import NotFound from './pages/NotFound';
 import AdminDashboard from './pages/AdminDashboard';
 import AuthGuard from "./guards/authGuard"
 import authService from './services/authService';
+import PendingUsers from './pages/PendingUsers';
+import ApprovedUsers from './pages/ApprovedUsers';
 
 
 
@@ -37,11 +39,13 @@ function App() {
             <Route path="/setnewpassword" element={<SetNewPassword/>} />
             <Route path="/forgotcredentials" element={<ForgotCredentials/>} />
             <Route path="/showMessage" exact element={<ShowMessage/>} />
+            <Route path="/admin/dashboard" exact element={<AdminDashboard/>} />
+            <Route path="/pendingUsers" exact element={<PendingUsers/>} />
+            <Route path="/approvedUsers" exact element={<ApprovedUsers/>} />
             <Route element={<AuthGuard/>}>
               <Route path="/userDashboard/:userId" exact element={<UserDashboard/>} />
               <Route path="/showTransactions" exact element={<AccountSummary/>} />
               <Route path="/fundTransfer" exact element={<FundTransfer/>} />
-              {/* <Route path="/admin/dashboard" exact element={<AdminDashboard/>} /> */}
               <Route path="/usersList" exact element={<UsersList/>} />
             </Route>
           </Routes>

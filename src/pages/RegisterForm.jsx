@@ -39,27 +39,25 @@ const RegisterForm = () => {
   });
 
   const navigate = useNavigate();
-  const [isSubmitted, setIsSubmitted] = useState();
+  const [isSubmitted, setIsSubmitted] = useState(false);
 
   const onSubmit = async (data) => {
     console.log(data);
     setIsSubmitted(true);
     const {confirmLoginPass, confirmTransactionPass, privacy, ...updated_data} = data;
-    try{
-      const result = await authService.register(data);
-      if(result.data){
-        userService.saveUserId(updated_data).then((res)=>{
-          console.log(res);
-          navigate('/');
-        }).catch((error)=>{
-          console.log(error);
-          toast.error(error.data.message);
-        })
-      }}catch(error){
-        toast.error(error.data.message);
-      }
-      setIsSubmitted(false);
-      reset();
+    userService.saveUserId(updated_data).then((res)=>{
+      console.log(res);
+      alert("You have been successfully registered");
+      navigate('/login');
+    }).catch((error)=>{
+      console.log(error);
+      if(error?.data?.messageString==="User Id  Already Exists :404")
+        alert("User Id  Already Exists");
+      else
+        alert("Either you have entered a wrong acc No Or You have not been approved yet");
+    })
+    reset();
+    setIsSubmitted(false);
   }
 
   return (
