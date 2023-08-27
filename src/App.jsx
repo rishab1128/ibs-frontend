@@ -18,6 +18,7 @@ import AuthGuard from "./guards/authGuard"
 import authService from './services/authService';
 import PendingUsers from './pages/PendingUsers';
 import ApprovedUsers from './pages/ApprovedUsers';
+import AddBeneficiary from './pages/AddBeneficiary';
 
 
 
@@ -46,7 +47,8 @@ function App() {
               <Route path="/userDashboard/:userId" exact element={<UserDashboard/>} />
               <Route path="/showTransactions" exact element={<AccountSummary/>} />
               <Route path="/fundTransfer" exact element={<FundTransfer/>} />
-              <Route path="/usersList" exact element={<UsersList/>} />
+              <Route path="/addbeneficiary" exact element={<AddBeneficiary/>} />
+              {/* <Route path="/usersList" exact element={<UsersList/>} /> */}
             </Route>
           </Routes>
         </div>

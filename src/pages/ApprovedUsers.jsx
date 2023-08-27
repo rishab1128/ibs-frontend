@@ -18,7 +18,7 @@ import authService from "../services/authService";
 
 function ApprovedUsers() {
   const [approvedUsers, setApprovedUsers] = useState([
-    { accNo: '12345', firstName: 'John', lastName: 'Doe' },
+    { accNo: '12345', firstName: 'John', lastName: 'Doe', accBalance:10 },
     // Add more pending users here
   ]);
 
@@ -50,6 +50,7 @@ function ApprovedUsers() {
             <TableCell>Account Number</TableCell>
             <TableCell>First Name</TableCell>
             <TableCell>Last Name</TableCell>
+            <TableCell>Acc Balance</TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
@@ -58,6 +59,7 @@ function ApprovedUsers() {
               <TableCell>{user.accNo}</TableCell>
               <TableCell>{user.firstName}</TableCell>
               <TableCell>{user.lastName}</TableCell>
+              <TableCell>{user.accBalance}</TableCell>
             </TableRow>
           ))}
         </TableBody>

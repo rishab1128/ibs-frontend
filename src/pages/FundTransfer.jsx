@@ -81,19 +81,6 @@ const FundTransfer = () => {
 
   return (
     <div style={{ display: 'flex', minHeight: '100vh' }}>
-    {/* <CssBaseline />
-      <AppBar position="fixed">
-        <Toolbar>
-          <IconButton edge="start" color="inherit" onClick={toggleSidebar} sx={{ mr: 2 }}>
-            <MenuIcon />
-          </IconButton>
-          <Typography variant="h6" noWrap>
-            Bank Account Dashboard
-          </Typography>
-          <ShowBalance/>
-        </Toolbar>
-      </AppBar>
-      <Sidebar isOpen={isSidebarOpen} onClose={toggleSidebar} /> */}
       <Navbar/>
       <Container maxWidth="xs">
         <Box sx={{

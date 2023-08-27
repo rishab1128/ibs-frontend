@@ -75,34 +75,6 @@ const UserDashboard = () => {
 
   return (
     <div style={{ display: 'flex', minHeight: '100vh' }}>
-      {/* <CssBaseline />
-      <AppBar position="fixed">
-        <Toolbar>
-          <IconButton edge="start" color="inherit" onClick={toggleSidebar} sx={{ mr: 2 }}>
-            <MenuIcon />
-          </IconButton>
-          <Typography variant="h6" noWrap>
-            Bank Account Dashboard
-          </Typography>
-          <Button variant="contained" color="secondary" startIcon={<CurrencyRupeeIcon />} sx={{ marginLeft: "auto" }} onClick={handleOpen}>Show Balance</Button>
-          <Modal
-            open={open}
-            onClose={handleClose}
-            aria-labelledby="modal-modal-title"
-            aria-describedby="modal-modal-description"
-          >
-            <Box sx={style}>
-              <Typography id="modal-modal-title" variant="h6" component="h2">
-                Hello! {accountInfo.userId}
-              </Typography>
-              <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-                Your current account balance is Rs.{accountInfo.accBalance};
-              </Typography>
-            </Box>
-          </Modal>
-        </Toolbar>
-      </AppBar>
-      <Sidebar isOpen={isSidebarOpen} onClose={toggleSidebar} /> */}
       <Navbar/>
       <Container sx={{ marginTop: '80px', display: 'flex', alignItems: 'flex-start', justifyContent: 'center', flex: 1 }}>
         <Grid container spacing={3} justifyContent="center">
