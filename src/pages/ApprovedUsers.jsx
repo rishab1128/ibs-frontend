@@ -16,7 +16,11 @@ import {
   Typography,
   Container,
   Modal,
-  Box
+  Box,
+  Alert,
+  AlertTitle,
+  List,
+  ListItem
 } from '@mui/material';
 import TextField from '@mui/material/TextField';
 import SearchIcon from '@mui/icons-material/Search';
@@ -145,15 +149,22 @@ function ApprovedUsers() {
                         >
                             <Box sx={style}>
                             <Typography id="modal-modal-title" variant="h6" component="h2">
-                                Matching User Found
+                            <Alert severity="success">
+                              <AlertTitle>Sucess</AlertTitle>
+                              Matching User Found!
+                            </Alert>
                             </Typography>
                             <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-                                <TableRow key={index}>
-                                    <TableCell>{user?.accNo}</TableCell>
-                                      <TableCell>{user?.firstName}</TableCell>
-                                      <TableCell>{user?.lastName}</TableCell>
-                                      <TableCell>{user?.accBalance}</TableCell>
-                                </TableRow>
+                                <List>
+                                  <ListItem><b>Account Number</b> : {user?.accNo} </ListItem>
+                                  <ListItem><b>First Name</b> : {user?.firstName} </ListItem>
+                                  <ListItem><b>Last Name</b> : {user?.lastName} </ListItem>
+                                  <ListItem><b>Account Bal</b> : {user?.accBalance}</ListItem>
+                                  <ListItem><b>Aadhar Number</b> : {user?.aadharNo} </ListItem>
+                                  <ListItem><b>PAN Number</b> : {user?.panNo}</ListItem>
+                                  <ListItem><b>Email</b> : {user?.email}</ListItem>
+                                  <ListItem><b>Mobile</b> : {user?.mobile}</ListItem>
+                              </List>
                             </Typography>
                             </Box>
                         </Modal>
@@ -166,7 +177,10 @@ function ApprovedUsers() {
                       >
                           <Box sx={style}>
                               <Typography id="modal-modal-title" variant="h6" component="h2">
-                                  Sorry!!!! No Matching User Found
+                                  <Alert severity="error">
+                                    <AlertTitle>Error</AlertTitle>
+                                      No Matching User Found!
+                                  </Alert>
                               </Typography>
                           </Box>
                       </Modal>

@@ -20,6 +20,7 @@ import PendingUsers from './pages/PendingUsers';
 import ApprovedUsers from './pages/ApprovedUsers';
 import AddBeneficiary from './pages/AddBeneficiary';
 import HomePage2 from './pages/HomePage2';
+import FundTransfer2 from './pages/FundTransfer2';
 import AdminLogin from './pages/AdminLogin';
 import { Toaster } from 'react-hot-toast';
 
@@ -52,7 +53,7 @@ function App() {
             <Route element={<AuthGuard/>}>
               <Route path="/userDashboard/:userId" exact element={<UserDashboard/>} />
               <Route path="/showTransactions" exact element={<AccountSummary/>} />
-              <Route path="/fundTransfer" exact element={<FundTransfer/>} />
+              <Route path="/fundTransfer" exact element={<FundTransfer2/>} />
               <Route path="/addbeneficiary" exact element={<AddBeneficiary/>} />
               {/* <Route path="/usersList" exact element={<UsersList/>} /> */}
             </Route>
