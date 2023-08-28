@@ -14,12 +14,15 @@ import AccountSummary from './pages/AccountSummary';
 import FundTransfer from './pages/FundTransfer';
 import NotFound from './pages/NotFound'; 
 import AdminDashboard from './pages/AdminDashboard';
-import AuthGuard from "./guards/authGuard"
+import {AuthGuard,AdminAuthGuard} from "./guards/authGuard"
 import authService from './services/authService';
 import PendingUsers from './pages/PendingUsers';
 import ApprovedUsers from './pages/ApprovedUsers';
 import AddBeneficiary from './pages/AddBeneficiary';
-
+import HomePage2 from './pages/HomePage2';
+import AdminLogin from './pages/AdminLogin';
+import SearchUser from './pages/SearchUser';
+import { Toaster } from 'react-hot-toast';
 
 
 function App() {
@@ -28,11 +31,12 @@ function App() {
   return (
     <Router>
       <div className="App">
-        <div className="container">
+        <Toaster position="top-center" reverseOrder={false}/>
+        {/* <div className="container"> */}
           <Routes>
             <Route path="*" exact element={<NotFound/>} />
             {/* <Route path="/" exact element={<HomePage/>}/> */}
-            <Route path="/" exact element={authUser?<UserDashboard/>:<HomePage/>} />
+            <Route path="/" exact element={authUser?<UserDashboard/>:<HomePage2/>} />
             <Route path="/openaccount" element={<OpenAccountForm/>}/>
             <Route path="/register" element={<RegisterForm/>}/>
             <Route path="/login" element={<LoginForm/>} />
@@ -40,9 +44,13 @@ function App() {
             <Route path="/setnewpassword" element={<SetNewPassword/>} />
             <Route path="/forgotcredentials" element={<ForgotCredentials/>} />
             <Route path="/showMessage" exact element={<ShowMessage/>} />
-            <Route path="/admin/dashboard" exact element={<AdminDashboard/>} />
-            <Route path="/pendingUsers" exact element={<PendingUsers/>} />
-            <Route path="/approvedUsers" exact element={<ApprovedUsers/>} />
+            <Route path="/admin/login" exact element = {<AdminLogin/>} />
+            <Route element = <AdminAuthGuard/>>
+              <Route path="/admin/dashboard" exact element={<AdminDashboard/>} />
+              <Route path="/pendingUsers" exact element={<PendingUsers/>} />
+              <Route path="/approvedUsers" exact element={<ApprovedUsers/>} />
+              <Route path="/searchUser" exact element={<SearchUser/>} />
+            </Route>
             <Route element={<AuthGuard/>}>
               <Route path="/userDashboard/:userId" exact element={<UserDashboard/>} />
               <Route path="/showTransactions" exact element={<AccountSummary/>} />
@@ -51,7 +59,7 @@ function App() {
               {/* <Route path="/usersList" exact element={<UsersList/>} /> */}
             </Route>
           </Routes>
-        </div>
+        {/* </div> */}
       </div>
     </Router>
   );

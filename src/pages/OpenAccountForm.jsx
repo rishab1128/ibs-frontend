@@ -1,12 +1,18 @@
-import { Container, Avatar, Box, Button, InputAdornment, Typography } from "@mui/material"
+import { CssBaseline, AppBar, Toolbar, IconButton, Container, Avatar, Box, Button, InputAdornment, Typography } from "@mui/material"
 import { useNavigate } from 'react-router-dom';
 import AssuredWorkloadIcon from '@mui/icons-material/AssuredWorkload';
+import MenuIcon from '@mui/icons-material/Menu';
 import TextFields from "../components/TextFields";
 import { useForm } from "react-hook-form";
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from "yup";
 import {phoneRegEx, aadharRegEx, panRegEx} from "../utils";
 import userService from "../services/userService";
+import Toast from "react-hot-toast";
+import FormSidebar from "../components/FormSidebar";
+import React, { useState, useEffect } from 'react';
+
+
 
 // create schema validation
 const schema = yup.object({
@@ -37,20 +43,39 @@ const OpenAccountForm = () => {
   const onSubmit = (data) => {
     // console.log(data);
     userService.saveUser(data).then((res)=>{
-      navigate('/showMessage' , {state:{title:`Your acc number is ${res.data.accNo}`}});
+      Toast.success(`Your acc number is ${res.data.accNo}.`);
+      navigate("/register");
       reset();
     }).catch((err)=>{
       console.log(err);
       if(err?.response?.data?.success===false)
       {
-        alert(`${err?.response?.data.messageString}`);
+        Toast.error(`${err?.response?.data.messageString}`);
       }
     })
     
   }
 
+  const [isSidebarOpen, setSidebarOpen] = useState(false);
+
+  const toggleSidebar = () => {
+    setSidebarOpen(!isSidebarOpen);
+  };
+
   return (
     <Container maxWidth="xs">
+      <CssBaseline />
+        <AppBar position="absolute">
+            <Toolbar>
+                <IconButton edge="start" color="inherit" onClick={toggleSidebar} sx={{ mr: 2 }}>
+                    <MenuIcon />
+                </IconButton>
+                <Typography variant="h6" noWrap>
+                    Internet Banking System
+                </Typography>
+            </Toolbar>
+      </AppBar>
+      <FormSidebar isOpen={isSidebarOpen} onClose={toggleSidebar} />
       <Box sx={{
         display: 'flex',
         flexDirection: 'column',

@@ -61,19 +61,6 @@ const AccountSummary = () => {
 
   return (
     <div style={{ display: 'flex', minHeight: '100vh' }}>
-      {/* <CssBaseline />
-      <AppBar position="fixed">
-        <Toolbar>
-          <IconButton edge="start" color="inherit" onClick={toggleSidebar} sx={{ mr: 2 }}>
-            <MenuIcon />
-          </IconButton>
-          <Typography variant="h6" noWrap>
-            Bank Account Dashboard
-          </Typography>
-          <ShowBalance/>
-        </Toolbar>
-      </AppBar>
-      <Sidebar isOpen={isSidebarOpen} onClose={toggleSidebar} /> */}
       <Navbar/>
       <Container sx={{ marginTop: '80px', display: 'flex', alignItems: 'flex-start', justifyContent: 'center', flex: 1 }}>
         <Paper elevation={3} sx={{ p: 3, width: '100%', maxWidth: '800px' }}>

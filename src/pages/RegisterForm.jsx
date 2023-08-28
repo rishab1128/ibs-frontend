@@ -1,5 +1,6 @@
-import { Container, Avatar, Box, Button, Typography } from "@mui/material"
+import { CssBaseline, AppBar, Toolbar, IconButton, Container, Avatar, Box, Button, Typography } from "@mui/material"
 import HowToRegIcon from '@mui/icons-material/HowToReg';
+import MenuIcon from '@mui/icons-material/Menu';
 import { useNavigate } from 'react-router-dom';
 import TextFields from "../components/TextFields";
 import PasswordFields from "../components/PasswordFields"
@@ -12,6 +13,7 @@ import userService from "../services/userService";
 import toast from 'react-hot-toast';
 import authService from '../services/authService';
 import { useState } from 'react';
+import FormSidebar from "../components/FormSidebar";
 
 // create schema validation
 const schema = yup.object({
@@ -41,13 +43,13 @@ const RegisterForm = () => {
   const navigate = useNavigate();
   const [isSubmitted, setIsSubmitted] = useState(false);
 
-  const onSubmit = async (data) => {
+  const onSubmit = (data) => {
     console.log(data);
     setIsSubmitted(true);
     const {confirmLoginPass, confirmTransactionPass, privacy, ...updated_data} = data;
     userService.saveUserId(updated_data).then((res)=>{
       console.log(res);
-      alert("You have been successfully registered");
+      toast("You have been successfully registered");
       navigate('/login');
     }).catch((error)=>{
       console.log(error);
@@ -60,8 +62,26 @@ const RegisterForm = () => {
     setIsSubmitted(false);
   }
 
+  const [isSidebarOpen, setSidebarOpen] = useState(false);
+
+  const toggleSidebar = () => {
+    setSidebarOpen(!isSidebarOpen);
+  };
+
   return (
     <Container maxWidth="xs">
+      <CssBaseline />
+        <AppBar position="absolute">
+            <Toolbar>
+                <IconButton edge="start" color="inherit" onClick={toggleSidebar} sx={{ mr: 2 }}>
+                    <MenuIcon />
+                </IconButton>
+                <Typography variant="h6" noWrap>
+                    Internet Banking System
+                </Typography>
+            </Toolbar>
+      </AppBar>
+      <FormSidebar isOpen={isSidebarOpen} onClose={toggleSidebar} />
       <Box sx={{
         display: 'flex',
         flexDirection: 'column',

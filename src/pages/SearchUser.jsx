@@ -1,35 +1,37 @@
+//@CrossOrigin(origins="*",allowedHeaders="*")
 import React, { useState, useEffect } from 'react';
+import {useNavigate} from 'react-router-dom';
 import {
+  Table,
+  TableBody,
+  TableCell,
+  TableContainer,
+  TableHead,
+  TableRow,
+  Paper,
+  IconButton,
   CssBaseline,
   AppBar,
   Toolbar,
-  IconButton,
   Typography,
-  Container,
-  Grid,
-  Paper,
+  Container
 } from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu';
-import Button from '@mui/material/Button';
-import CurrencyRupeeIcon from '@mui/icons-material/CurrencyRupee';
-import Sidebar from '../components/Sidebar';
-import authService from "../services/authService";
+import DeleteIcon from '@mui/icons-material/Delete';
+import CheckIcon from '@mui/icons-material/Check';
 import userService from '../services/userService';
-import userAvatar from '../assets/user-avatar.jpg'; 
-import Modal from '@mui/material/Modal';
-import Box from '@mui/material/Box';
-import Navbar from '../components/Navbar';
-import MediaCard from '../components/MediaCard';
+import authService from "../services/authService";
 import AdminSidebar from '../components/AdminSidebar';
 
-const AdminDashboard = () => {
+
+function SearchUser() {
+
   const [isSidebarOpen, setSidebarOpen] = useState(false);
 
   const toggleSidebar = () => {
     setSidebarOpen(!isSidebarOpen);
   };
 
-  
   return (
     <div style={{ display: 'flex', minHeight: '100vh' }}>
         <CssBaseline />
@@ -45,17 +47,9 @@ const AdminDashboard = () => {
       </AppBar>
       <AdminSidebar isOpen={isSidebarOpen} onClose={toggleSidebar} />
       <Container sx={{ marginTop: '80px', display: 'flex', alignItems: 'flex-start', justifyContent: 'center', flex: 1 }}>
-        <Grid container spacing={3} justifyContent="center">
-            <Grid item xs={12} md={8} lg={6}>
-                <MediaCard title="Show Pending Requests" compBody="These users have not been approved by the admin yet." propLink="/pendingUsers"/>
-            </Grid>
-            <Grid item xs={12} md={8} lg={6}>
-                <MediaCard title="Show Approved Users" compBody="These users have been approved and have a acc in our bank" propLink="/approvedUsers"/>
-            </Grid>
-        </Grid>
       </Container>
-    </div> 
+    </div>
   );
-};
+}
 
-export default AdminDashboard;
+export default SearchUser;

@@ -10,11 +10,34 @@ import {
   TableRow,
   Paper,
   IconButton,
+  CssBaseline,
+  AppBar,
+  Toolbar,
+  Typography,
+  Container,
+  Modal,
+  Box
 } from '@mui/material';
+import TextField from '@mui/material/TextField';
+import SearchIcon from '@mui/icons-material/Search';
+import MenuIcon from '@mui/icons-material/Menu';
 import DeleteIcon from '@mui/icons-material/Delete';
 import CheckIcon from '@mui/icons-material/Check';
 import userService from '../services/userService';
 import authService from "../services/authService";
+import AdminSidebar from '../components/AdminSidebar';
+
+const style = {
+  position: 'absolute',
+  top: '50%',
+  left: '50%',
+  transform: 'translate(-50%, -50%)',
+  width: 400,
+  bgcolor: 'background.paper',
+  border: '2px solid #000',
+  boxShadow: 24,
+  p: 4,
+};
 
 function PendingUsers() {
   const [pendingUsers, setPendingUsers] = useState([
@@ -47,7 +70,6 @@ function PendingUsers() {
 
   const handleApprove = (index) => {
     const approvedUser = pendingUsers[index];
-    // Call an API to insert the approvedUser into the database
     console.log(approvedUser);
     const {accNo,...data} = approvedUser;
     userService.postPendingUsers(approvedUser).then((res)=>{
@@ -60,47 +82,158 @@ function PendingUsers() {
     setPendingUsers(updatedPendingUsers);
   };
 
+  const [searchQuery, setSearchQuery] = useState('');
+  const [filteredUsers, setFilteredUsers] = useState([]);
+  const [showFilteredUsers, setShowFilteredUsers] = useState(false);
+  const [open, setOpen] = useState(false);
+
+  const handleSearch = (event) => {
+    setSearchQuery(event.target.value);
+    const filtered = pendingUsers.filter(user => user?.accNo == searchQuery);
+    setFilteredUsers(filtered);
+    console.log(filteredUsers);
+    setShowFilteredUsers(true);
+    setOpen(true);
+    setSearchQuery('');
+  };
+
+  const handleClose = () => setOpen(false);
+
+  const [isSidebarOpen, setSidebarOpen] = useState(false);
+
+  const toggleSidebar = () => {
+    setSidebarOpen(!isSidebarOpen);
+  };
+
   return (
-    <TableContainer component={Paper}>
-      <Table>
-        <TableHead>
-          <TableRow>
-            <TableCell>Account Number</TableCell>
-            <TableCell>First Name</TableCell>
-            <TableCell>Last Name</TableCell>
-            <TableCell></TableCell>
-            <TableCell></TableCell>
-          </TableRow>
-        </TableHead>
-        <TableBody>
-          {pendingUsers.map((user, index) => (
-            <TableRow key={index}>
-              <TableCell>{user.accNo}</TableCell>
-              <TableCell>{user.firstName}</TableCell>
-              <TableCell>{user.lastName}</TableCell>
-              <TableCell>
-                <IconButton
-                  onClick={() => handleApprove(index)}
-                  color="primary"
-                  aria-label="approve"
-                >
-                  <CheckIcon />
+    <div style={{ display: 'flex', minHeight: '100vh' }}>
+        <CssBaseline />
+        <AppBar position="fixed">
+            <Toolbar>
+                <IconButton edge="start" color="inherit" onClick={toggleSidebar} sx={{ mr: 2 }}>
+                    <MenuIcon />
                 </IconButton>
-              </TableCell>
-              <TableCell>
-                <IconButton
-                  onClick={() => handleDelete(index)}
-                  color="secondary"
-                  aria-label="delete"
-                >
-                  <DeleteIcon />
-                </IconButton>
-              </TableCell>
-            </TableRow>
-          ))}
-        </TableBody>
-      </Table>
-    </TableContainer>
+                <Typography variant="h6" noWrap>
+                    Bank Admin Dashboard
+                </Typography>
+            </Toolbar>
+      </AppBar>
+      <AdminSidebar isOpen={isSidebarOpen} onClose={toggleSidebar} />
+      <Container sx={{ marginTop: '80px', display: 'flex', alignItems: 'flex-start', justifyContent: 'center', flex: 1 }}>
+        <Paper elevation={3} sx={{ p: 3, width: '100%', maxWidth: '800px' }}>
+          <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '10px' }}>
+              <TextField
+                label="Search by Account No."
+                variant="outlined"
+                size="small"
+                value={searchQuery}
+                onChange={(event) => setSearchQuery(event.target.value)}
+              />
+              <IconButton onClick={handleSearch}>
+                <SearchIcon />
+              </IconButton>
+            </div>
+            <TableContainer>
+              <Table>
+                <TableHead>
+                  <TableRow>
+                    <TableCell>Account Number</TableCell>
+                    <TableCell>First Name</TableCell>
+                    <TableCell>Last Name</TableCell>
+                    <TableCell>Opening Acc Balance</TableCell>
+                    <TableCell></TableCell>
+                    <TableCell></TableCell>
+                  </TableRow>
+                </TableHead>
+                <TableBody>
+                  {pendingUsers.map((user, index) => (
+                    <TableRow key={index}>
+                      <TableCell>{user?.accNo}</TableCell>
+                      <TableCell>{user?.firstName}</TableCell>
+                      <TableCell>{user?.lastName}</TableCell>
+                      <TableCell>{user?.accBalance}</TableCell>
+                      <TableCell>
+                        <IconButton
+                          onClick={() => handleApprove(index)}
+                          color="primary"
+                          aria-label="approve"
+                        >
+                          <CheckIcon />
+                        </IconButton>
+                      </TableCell>
+                      <TableCell>
+                        <IconButton
+                          onClick={() => handleDelete(index)}
+                          color="secondary"
+                          aria-label="delete"
+                        >
+                          <DeleteIcon />
+                        </IconButton>
+                      </TableCell>
+                    </TableRow>
+                  ))}
+                </TableBody>
+                {showFilteredUsers ? (
+                    filteredUsers.length > 0 ? filteredUsers.map((user, index) => (
+                      <Modal
+                              open={open}
+                              onClose={handleClose}
+                              aria-labelledby="modal-modal-title"
+                              aria-describedby="modal-modal-description"
+                          >
+                              <Box sx={style}>
+                              <Typography id="modal-modal-title" variant="h6" component="h2">
+                                  Matching User Found
+                              </Typography>
+                              <Typography id="modal-modal-description" sx={{ mt: 2 }}>
+                                  <TableRow key={index}>
+                                      <TableCell>{user?.accNo}</TableCell>
+                                        <TableCell>{user?.firstName}</TableCell>
+                                        <TableCell>{user?.lastName}</TableCell>
+                                        <TableCell>{user?.accBalance}</TableCell>
+                                        <TableCell>
+                                          <IconButton
+                                            onClick={() => handleApprove(index)}
+                                            color="primary"
+                                            aria-label="approve"
+                                          >
+                                            <CheckIcon />
+                                          </IconButton>
+                                        </TableCell>
+                                        <TableCell>
+                                          <IconButton
+                                            onClick={() => handleDelete(index)}
+                                            color="secondary"
+                                            aria-label="delete"
+                                          >
+                                            <DeleteIcon />
+                                          </IconButton>
+                                        </TableCell>
+                                  </TableRow>
+                              </Typography>
+                              </Box>
+                          </Modal>
+                    )) : (
+                      <Modal
+                            open={open}
+                            onClose={handleClose}
+                            aria-labelledby="modal-modal-title"
+                            aria-describedby="modal-modal-description"
+                        >
+                            <Box sx={style}>
+                                <Typography id="modal-modal-title" variant="h6" component="h2">
+                                    Sorry!!!! No Matching User Found
+                                </Typography>
+                            </Box>
+                        </Modal>
+                    )
+                  ) : null
+                }
+              </Table>
+            </TableContainer>
+          </Paper>
+        </Container>
+    </div>
   );
 }
 
