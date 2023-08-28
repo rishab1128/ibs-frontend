@@ -30,6 +30,7 @@ import CheckIcon from '@mui/icons-material/Check';
 import userService from '../services/userService';
 import authService from "../services/authService";
 import AdminSidebar from '../components/AdminSidebar';
+import toast  from 'react-hot-toast';
 
 const style = {
   position: 'absolute',
@@ -66,6 +67,7 @@ function PendingUsers() {
     }
 
   const handleDelete = (index) => {
+    toast.error("User rejected!");
     const updatedPendingUsers = pendingUsers.filter((user, i) => i !== index);
     setPendingUsers(updatedPendingUsers);
   };
@@ -77,7 +79,8 @@ function PendingUsers() {
     console.log(approvedUser);
     const {accNo,...data} = approvedUser;
     userService.postPendingUsers(approvedUser).then((res)=>{
-        navigate('/approvedUsers');
+        toast.success("User approved successfully!");
+        // navigate('/approvedUsers');
         console.log(res);
     }).catch((err)=>{
         console.log(err);
