@@ -7,19 +7,27 @@ import * as yup from "yup";
 import { useState } from 'react';
 import Navbar from "../components/Navbar";
 import { toast } from "react-hot-toast";
+import authService from "../services/authService";
+import userService from "../services/userService";
+
+
 
 // create schema validation
 const schema = yup.object({
+    benef: yup.string().required('Beneficiary Account Number is required'),
     benefName: yup.string().required('Beneficiary Name is required'),
-    accNo: yup.string().required('Account Number is required'),
-    reEnterAccNo: yup.string().oneOf([yup.ref('accNo'),null], 'Account Numbers should match')
+    reEnterAccNo: yup.string().oneOf([yup.ref('benef'),null], 'Account Numbers should match')
 });
+
+const accInfo = authService.getAccountInfo();
+
 
 const AddBeneficiary = () => {
   const { handleSubmit, reset, formState: { errors, isDirty, isValid }, control } = useForm({
     defaultValues: {
         benefName:'',
-        accNo: '',
+        benef:'',
+        accNo: `${accInfo?.accountNumber}`,
         reEnterAccNo:''
     },
     resolver: yupResolver(schema)
@@ -28,9 +36,17 @@ const AddBeneficiary = () => {
   const [isSubmitted, setIsSubmitted] = useState(false);
 
   const onSubmit =  (data) => {
-    console.log(data);
     setIsSubmitted(true);
-    toast.success('Beneficiary Added Successfully');
+    console.log(data);
+    const {reEnterAccNo , ...updated_data} = data;
+    userService.addBeneficiary(updated_data).then((res)=>{
+      console.log(res);
+      toast.success('Beneficiary Added Successfully');
+      // navigate({pathname:`/userDashboard/${accInfo?.userId}`}, {state:{userId: accInfo?.userId}});
+    }).catch((error)=>{
+      toast.error('Error encountered');
+      console.log(error);
+    })
     reset();
     setIsSubmitted(false);
   }
@@ -52,8 +68,9 @@ const AddBeneficiary = () => {
 
                 {/* Form */}
                 <Box noValidate component='form' onSubmit={handleSubmit(onSubmit)} sx={{width: '100%', mt: '2rem' }}>
+                    <TextFields disabled={true} errors={errors} control={control} name='accNo' label='Your Account Number' />
                     <TextFields errors={errors} control={control} name='benefName' label='Beneficiary Name' />
-                    <TextFields errors={errors} control={control} name='accNo' label='Account Number' />
+                    <TextFields errors={errors} control={control} name='benef' label='Beneficiary Account Number' />
                     <TextFields errors={errors} control={control} name='reEnterAccNo' label='Re-enter Account Number' />
                     <Button
                         type="submit"

@@ -25,15 +25,14 @@ import userService from "../services/userService";
 import authService from "../services/authService";
 import ShowBalance from "../components/ShowBalance";
 import Navbar from "../components/Navbar";
+import CurrencyRupeeIcon from '@mui/icons-material/CurrencyRupee';
 
 // create schema validation
 const schema = yup.object({
-  receiver: yup.number().required('Receiver Account Number is required'),
-  amount: yup.number().required('Amount to be transfered is required'),
-  mode: yup.string().required('Mode of payment is reqd')
+    value: yup.number().required('Amount to withdrawn is required'),
 });
 
-const FundTransfer2 = () => {
+const Withdraw = () => {
   
     const [modalOpen, setModalOpen] = useState(false);
     const [transactionStatus, setTransactionStatus] = useState(null);
@@ -46,18 +45,16 @@ const FundTransfer2 = () => {
 
     const { handleSubmit, reset, formState: { errors }, control } = useForm({
         defaultValues: {
-        payer: `${accInfo?.accountNumber}`,
-        receiver: '',
-        amount:'',
-        mode:'neft'
+        accNo: `${accInfo?.accountNumber}`,
+        value:'',
         },
         resolver: yupResolver(schema)
     });
 
     const navigate = useNavigate();
     const onSubmit = (data) => {
-        // console.log(data);
-        userService.fundTransfer(data).then((res)=>{
+        console.log(data);
+        userService.postWithdrawal(data).then((res)=>{
             console.log(res);
             setTransactionStatus("success");
             setTransactionData(res.data);
@@ -100,22 +97,20 @@ const FundTransfer2 = () => {
             alignItems: 'center'
             }}>
             <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
-                <SwapHorizIcon/>
+                <CurrencyRupeeIcon />
             </Avatar>
-            <Typography component='h1'>FUND TRANSFER</Typography>
+            <Typography component='h1'>WITHDRAW AMOUNT</Typography>
 
             {/* Form */}
             <Box noValidate component='form' onSubmit={handleSubmit(onSubmit)} sx={{width: '100%', mt: '2rem' }}>
-                <TextFields disabled={true} errors={errors} control={control} name='payer' label='From Account Number' />
-                <TextFields errors={errors} control={control} name='receiver' label='To Account Number' />
-                <TextFields errors={errors} control={control} name='amount' label='Amount to be transfered' />
-                <SelectFields errors={errors} control={control} name='mode' label='Mode of Transfer'/>
+                <TextFields disabled={true} errors={errors} control={control} name='accNo' label='User Account Number' />
+                <TextFields errors={errors} control={control} name='value' label='Amount to be withdrawn' />
                 <Button
                 type="submit"
                 fullWidth
                 variant="contained"
                 sx={{ mt: 3, mb: 2 }}
-                >Transfer</Button>
+                >Withdraw</Button>
             </Box>
             </Box>
         </Container>
@@ -125,18 +120,13 @@ const FundTransfer2 = () => {
                 <>
                     <Typography variant="h6" color="success.main">Transaction Successful</Typography>
                     <List>
-                        <ListItem><b>Transaction ID</b> : {transactionData.transId} </ListItem>
-                        <ListItem><b>Mode of Transfer</b> : {transactionData.mode} </ListItem>
-                        <ListItem><b>Paid to Account Number</b> : {transactionData.receiver} </ListItem>
-                        <ListItem><b>Amount Transferred</b> : {transactionData.amount}</ListItem>
-                        <ListItem><b>From Account Number</b> : {transactionData.payer} </ListItem>
                         <ListItem><b>On (Date)</b> : {dateFormat}</ListItem>
                     </List>
                 </>
                 ) : (
                 <>
                     <Typography variant="h6" color="error.main">Transaction Unsuccessful</Typography>
-                    <Alert severity="error">{errorMsg.substring(0,errorMsg.length-4)}</Alert>
+                    <Alert severity="error">ERROR! {errorMsg}</Alert>
                 </>
                 )}
             </Paper>
@@ -145,4 +135,4 @@ const FundTransfer2 = () => {
     )
 }
 
-export default FundTransfer2;
+export default Withdraw;

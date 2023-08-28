@@ -11,6 +11,8 @@ import PersonIcon from '@mui/icons-material/Person';
 import CloseIcon from '@mui/icons-material/Close';
 import ExitToAppIcon from '@mui/icons-material/ExitToApp';
 import toast from 'react-hot-toast';
+import CurrencyRupeeIcon from '@mui/icons-material/CurrencyRupee';
+import VisibilityIcon from '@mui/icons-material/Visibility';
 import authService from "../services/authService";
 
 const Sidebar = ({ isOpen, onClose }) => {
@@ -21,10 +23,9 @@ const Sidebar = ({ isOpen, onClose }) => {
     { text: 'User Profile', icon: <PersonIcon /> , link: `/userDashboard/${authUser?.userId}` },
     { text: 'Account Summary', icon: <AccountBalanceIcon /> , link: "/showTransactions" },
     { text: 'Fund Transfer', icon: <SwapHorizIcon />, link: "/fundTransfer" },
-    // { text: 'NEFT Payment', icon: <LocalAtmIcon />, link: `/userDashboard/${authUser?.userId}` },
-    // { text: 'RTGS Payment', icon: <MonetizationOnIcon />, link: `/userDashboard/${authUser?.userId}` },
-    // { text: 'IMPS Payment', icon: <PaymentIcon />, link: `/userDashboard/${authUser?.userId}` },
     { text: 'Add Beneficiary', icon: <PersonAddIcon />, link: "/addbeneficiary" },
+    { text: 'Show Beneficiary', icon: <VisibilityIcon />, link: "/showbeneficiary" },
+    { text: 'Withdraw', icon: <CurrencyRupeeIcon />, link: "/withdraw" },
     { text: 'Logout', icon: <ExitToAppIcon />}
   ];
 

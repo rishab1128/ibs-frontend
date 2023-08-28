@@ -24,6 +24,15 @@ class userService{
     getUserTransaction(userId){
         return http.get(`${BASE_URL2}/showTransactions/${userId}`);
     }
+    addBeneficiary(data){
+        return http.post(`${BASE_URL2}/addBeneficiary/${authUser?.userId}`,data);
+    }
+    getBeneficiaries(userId){
+        return http.get(`${BASE_URL2}/showBeneficiary/${userId}`);
+    }
+    postWithdrawal(data){
+        return http.post(`${BASE_URL2}/withdrawl/${authUser?.userId}`,data);
+    }
     getPendingUsers(){
         return http.get(`${BASE_URL}/admin/userlist_requested`);
     }

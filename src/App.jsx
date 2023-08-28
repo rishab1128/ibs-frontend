@@ -22,6 +22,8 @@ import AddBeneficiary from './pages/AddBeneficiary';
 import HomePage2 from './pages/HomePage2';
 import FundTransfer2 from './pages/FundTransfer2';
 import AdminLogin from './pages/AdminLogin';
+import Withdraw from './pages/Withdraw';
+import ShowBeneficiary from './pages/ShowBeneficiary';
 import { Toaster } from 'react-hot-toast';
 
 
@@ -55,6 +57,8 @@ function App() {
               <Route path="/showTransactions" exact element={<AccountSummary/>} />
               <Route path="/fundTransfer" exact element={<FundTransfer2/>} />
               <Route path="/addbeneficiary" exact element={<AddBeneficiary/>} />
+              <Route path="/showbeneficiary" exact element={<ShowBeneficiary/>} />
+              <Route path="/withdraw" exact element={<Withdraw/>} />
               {/* <Route path="/usersList" exact element={<UsersList/>} /> */}
             </Route>
           </Routes>
