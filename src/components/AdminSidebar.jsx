@@ -24,7 +24,6 @@ const AdminSidebar = ({ isOpen, onClose }) => {
     { text: 'Dashboard', icon: <PersonIcon /> , link: "/admin/dashboard" },
     { text: 'Pending Users', icon: <GroupRemoveIcon /> , link: "/pendingUsers" },
     { text: 'Approved Users', icon: <GroupAddIcon />, link: "/approvedUsers" },
-    // { text: 'Search a user', icon: <PersonSearchIcon />, link: "/searchUser" },
     { text: 'Logout', icon: <ExitToAppIcon />}
   ];
 

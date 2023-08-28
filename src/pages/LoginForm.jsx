@@ -49,15 +49,15 @@ const LoginForm = () => {
       const result = await authService.login(data);
       if (result?.data?.jwtToken) {
         console.log("JWT : ", result.data.jwtToken);
+        toast.success("Successfully Logged In");
         navigate({pathname:`/userDashboard/${data.userId}`}, {state:{userId: data.userId}});
       }
       else{
-        alert("Check credentials");
+        toast.error("Invalid credentials");
       }
     } catch (error) {
       console.log("err" , error);
-      alert("Check credentials");
-      // toast.error("Check credentials");
+      toast.error("Invalid credentials");
     }
     
     setIsSubmitted(false)

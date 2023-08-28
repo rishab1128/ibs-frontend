@@ -21,7 +21,6 @@ import ApprovedUsers from './pages/ApprovedUsers';
 import AddBeneficiary from './pages/AddBeneficiary';
 import HomePage2 from './pages/HomePage2';
 import AdminLogin from './pages/AdminLogin';
-import SearchUser from './pages/SearchUser';
 import { Toaster } from 'react-hot-toast';
 
 
@@ -49,7 +48,6 @@ function App() {
               <Route path="/admin/dashboard" exact element={<AdminDashboard/>} />
               <Route path="/pendingUsers" exact element={<PendingUsers/>} />
               <Route path="/approvedUsers" exact element={<ApprovedUsers/>} />
-              <Route path="/searchUser" exact element={<SearchUser/>} />
             </Route>
             <Route element={<AuthGuard/>}>
               <Route path="/userDashboard/:userId" exact element={<UserDashboard/>} />

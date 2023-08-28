@@ -6,6 +6,7 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from "yup";
 import { useState } from 'react';
 import Navbar from "../components/Navbar";
+import { toast } from "react-hot-toast";
 
 // create schema validation
 const schema = yup.object({
@@ -29,6 +30,7 @@ const AddBeneficiary = () => {
   const onSubmit =  (data) => {
     console.log(data);
     setIsSubmitted(true);
+    toast.success('Beneficiary Added Successfully');
     reset();
     setIsSubmitted(false);
   }

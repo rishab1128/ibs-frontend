@@ -32,26 +32,18 @@ const AdminLogin = () => {
   const [isSubmitted, setIsSubmitted] = useState(false);
   const navigate = useNavigate();
 
-//   useEffect(() => {
-//     let isAuth = JSON.parse(localStorage.getItem('authUser'));
-//     if(isAuth && isAuth !== null) {
-//         navigate({pathname:`/userDashboard/${authUser.userId}`});
-//     }
-//   }, []);
-
-  
-
   const onSubmit = async (data) => {
     setIsSubmitted(true);
     console.log(data);
     if(data.adminId==="ADMIN" && data.loginPass==="AdminPass@1")
     {
         localStorage.setItem('admin' , JSON.stringify(data));
+        toast.success('Successfully Logged In')
         navigate("/admin/dashboard");
     }
     else
     {
-      alert("Invalid Credentials")
+      toast.error('Invalid credentials')
     }
     
     setIsSubmitted(false)

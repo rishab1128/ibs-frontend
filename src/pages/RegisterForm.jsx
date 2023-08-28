@@ -49,14 +49,14 @@ const RegisterForm = () => {
     const {confirmLoginPass, confirmTransactionPass, privacy, ...updated_data} = data;
     userService.saveUserId(updated_data).then((res)=>{
       console.log(res);
-      toast("You have been successfully registered");
+      toast.success("You have been successfully registered");
       navigate('/login');
     }).catch((error)=>{
       console.log(error);
       if(error?.data?.messageString==="User Id  Already Exists :404")
-        alert("User Id  Already Exists");
+        toast.error("User Id  Already Exists");
       else
-        alert("Either you have entered a wrong acc No Or You have not been approved yet");
+        toast.error("Either you have entered a wrong acc No Or You have not been approved yet");
     })
     reset();
     setIsSubmitted(false);

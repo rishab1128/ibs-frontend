@@ -36,26 +36,9 @@ const FundTransfer = () => {
     setSidebarOpen(!isSidebarOpen);
   };
 
-  // const [user, setUser] = useState(null);
-  // const authUser = authService.getAuthUser();
+  
   const accInfo = authService.getAccountInfo();
   console.log(accInfo);
-
-  // useEffect(() => {
-  //   fetchProfile();
-  // }, []);
-
-  // const fetchProfile = async () => {
-  //   try {
-  //     const result = await userService.getUser(authUser?.userId);
-  //     // console.log(result);
-  //     setUser(result?.data)
-  //   } catch (error) {
-  //     console.log("Err : " , error);
-  //   }
-  // }
-
-  // console.log(user);
 
   const { handleSubmit, reset, formState: { errors }, control } = useForm({
     defaultValues: {
