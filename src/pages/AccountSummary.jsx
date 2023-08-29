@@ -84,7 +84,6 @@ const AccountSummary = () => {
                     <TableCell>{row.mode}</TableCell>
                     <TableCell>{row.transId}</TableCell>
                     <TableCell>{row.amount}</TableCell>
-                    {/* <TableCell>{row.currentBalance}</TableCell> */}
                   </TableRow>
                 ))}
               </TableBody>
