@@ -75,7 +75,7 @@ const UserDashboard = () => {
 
   return (
     <div style={{ display: 'flex', minHeight: '100vh' }}>
-      <Navbar/>
+      <Navbar />
       <Container sx={{ marginTop: '80px', display: 'flex', alignItems: 'flex-start', justifyContent: 'center', flex: 1 }}>
         <Grid container spacing={3} justifyContent="center">
           <Grid item xs={12} md={8} lg={6}>

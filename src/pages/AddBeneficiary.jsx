@@ -9,6 +9,7 @@ import Navbar from "../components/Navbar";
 import { toast } from "react-hot-toast";
 import authService from "../services/authService";
 import userService from "../services/userService";
+import {Link} from 'react-router-dom';
 
 
 
@@ -80,13 +81,15 @@ const AddBeneficiary = () => {
                         disabled={isSubmitted || !isDirty || !isValid}
                     >Add Beneficiary</Button>
                 </Box>
-                <Button
-                    type="submit"
-                    fullWidth
-                    variant="contained"
-                    sx={{ mt: 3, mb: 2 }}
-                    // disabled={isSubmitted || !isDirty || !isValid}
-                >Show Beneficiaries</Button>
+                <Link to="/showbeneficiary">
+                  <Button
+                      type="submit"
+                      fullWidth
+                      variant="contained"
+                      sx={{ mt: 3, mb: 2 }}
+                      // disabled={isSubmitted || !isDirty || !isValid}
+                  >Show Beneficiaries</Button>
+                </Link>
             </Box>
         </Container>
     </div>

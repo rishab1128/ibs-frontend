@@ -45,6 +45,7 @@ const Navbar = () => {
 
   const accountInfo = authService.getAccountInfo();
 
+
   return (
     <>
       <CssBaseline />
@@ -54,7 +55,7 @@ const Navbar = () => {
             <MenuIcon />
           </IconButton>
           <Typography variant="h6" noWrap>
-            Bank Account Dashboard
+            Welcome {accountInfo.userId}
           </Typography>
           <Button variant="contained" color="secondary" startIcon={<CurrencyRupeeIcon />} sx={{ marginLeft: "auto" }} onClick={handleOpen}>Show Balance</Button>
           <Modal

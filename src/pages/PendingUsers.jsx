@@ -46,7 +46,7 @@ const style = {
 
 function PendingUsers() {
   const [pendingUsers, setPendingUsers] = useState([
-    { accNo: '12345', firstName: 'John', lastName: 'Doe' },
+    // { accNo: '12345', firstName: 'John', lastName: 'Doe' },
     // Add more pending users here
   ]);
 
@@ -55,19 +55,26 @@ function PendingUsers() {
     fetchData();
   }, []);
 
-    const authUser = authService.getAuthUser();  
-    const fetchData =  async () => {
-        try {
-        const result = await userService.getPendingUsers();
-        console.log(result);
-        setPendingUsers(result?.data)
-        } catch (error) {
-        console.log("Err : " , error);
-        }
-    }
+  const authUser = authService.getAuthUser();  
+  const fetchData =  async () => {
+      try {
+      const result = await userService.getPendingUsers();
+      console.log(result);
+      setPendingUsers(result?.data)
+      } catch (error) {
+      console.log("Err : " , error);
+      }
+  }
 
   const handleDelete = (index) => {
-    toast.error("User rejected!");
+    const pendingUser = pendingUsers[index];
+    userService.deletePendingUsers(pendingUser?.accNo).then((res)=>{
+      toast.error("User deleted successfully");
+      console.log(res);
+    }).catch((err)=>{
+      toast.error("Error!!!");
+      console.log(err);
+    })
     const updatedPendingUsers = pendingUsers.filter((user, i) => i !== index);
     setPendingUsers(updatedPendingUsers);
   };
